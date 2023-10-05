@@ -1,0 +1,20 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+h1 {
+    color: #7A5980;
+}
+
+.nav {
+    background-color: #3B3B58; 
+    padding: 30px; 
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navbar-link {
+    color: white; 
+    margin: 10px; 
+}
