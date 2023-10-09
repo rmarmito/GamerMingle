@@ -1,20 +1,122 @@
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-}
 
-h1 {
-    color: #7A5980;
-}
-
+/*----------------------------------------------------------------*/
+/* NAV BAR STYLING */
 .nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #3B3B58;
+
+}
+
+/* Style for navbar */
+.navbar {
     background-color: #3B3B58; 
-    padding: 30px; 
+    padding: 0px; 
     display: flex;
     justify-content: flex-end;
+    position: relative;
+
 }
 
+/* Style for list items */
+.nav li {
+    display: inline-block;   
+}
+
+/* Style for links in navbar */
 .navbar-link {
     color: white; 
-    margin: 10px; 
+    margin: 15px; 
+    text-decoration: none; 
+    padding: 15px;
+    display: inline-block;
+    position: relative;
 }
+
+/* Style for hover effect on links */
+.nav li:hover {
+    background-color: #7A5980;
+
+}
+
+/* Style for active link */
+.nav li.active {
+    background-color: #7A5980;
+}
+
+/*----------------------------------------------------------------*/
+/* GLOBAL BODY AND HEADER */
+
+body {
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+
+    background-image: linear-gradient(#7A5980, #BC7C9C); /* Replace with your desired color */
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+}
+
+
+/* Home Page - Title Text */
+h1 {
+    font-family: Helvetica, sans-serif;
+    font-size: 108px;
+    margin-top: 10%;
+    margin-bottom: 0;
+    color: #ffffff;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 3); 
+}
+h2 {
+    font-family: Helvetica, sans-serif;
+    font-size: 48px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 1); 
+
+}
+h3 {
+    font-family: Helvetica, sans-serif;
+    font-size: 24px;
+    margin-top: 0px;
+    color: #ffffff;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 1); 
+}
+
+
+/*----------------------------------------------------------------*/
+/* HomePage - Sign Up button styling */
+
+.signupbtn {
+  background-color: #A96DA3;
+  border: 2px solid #3B3B58;
+  border-radius: 30px;
+  margin-top: 75px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: center;
+  cursor: pointer;
+  font-size: 48px;
+  font-weight: 400;
+  text-shadow: 0px 0px 2px rgba(0, 0, 0, 1); 
+  min-width: 30px;
+  overflow: visible;
+  padding: 10px 15px;
+  text-align: center;
+}
+
+.signupbtn:hover {
+  background-image: linear-gradient(#3B3B58, #7A5980);
+  border-color: #3B3B58;
+  text-decoration: none;
+}
+
+
+

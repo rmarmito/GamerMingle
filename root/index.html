@@ -9,17 +9,28 @@
 </head>
 
 <body>
-    <nav class="nav">
-        <a class="navbar-link" href="index.html"> Home </a>
-        <a class="navbar-link" href="../pages/safety.html"> Safety </a> 
-        <a class="navbar-link" href="../pages/learn.html"> Learn </a>
-        <a class="navbar-link" href="../pages/support.html"> Support </a> 
+    <div>
+    <nav class="navbar">
+        <ul class="nav">
+            <li class="active"><a class="navbar-link" href="../root/index.html"> Home </a></li>
+            <li class="safety"><a class="navbar-link" href="../pages/safety.html"> Safety</a></li> 
+            <li class="learn"><a class="navbar-link" href="../pages/learn.html"> Learn </a></li>
+            <li class="support"><a class="navbar-link" href="../pages/support.html"> Support </a></li> 
+        </ul>
     </nav>
-    <h1> GamerMingle - Home Page </h1>
-    <p> Find your duo. Or Trio. Or squad. </p>
-    <p> We don't judge </p>
+    </div>
 
-    <button onclick="window.location.href = '../pages/signup.html'">Sign Up</button>
+    <div class="main">
+        <h1 class=""> Find Your Duo.</h1>
+        <h2> Or Trio. Or Squad. </h2>
+        <h3> We don't judge </p>
+    </div>
+
+    <div>
+        <button class="signupbtn" role="button" onclick="window.location.href = '../pages/signup.html'">Sign Up Now</button>
+        <br>
+        <a href="../pages/login.html"  >or log in</a>
+    </div>
 
 </body>
 </html>
