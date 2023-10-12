@@ -1,122 +1,211 @@
-
 /*----------------------------------------------------------------*/
-/* NAV BAR STYLING */
+/* GLOBAL NAV BAR STYLING */
+
 .nav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #3B3B58;
-
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #3b3b58;
 }
 
-/* Style for navbar */
 .navbar {
-    background-color: #3B3B58; 
-    padding: 0px; 
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
-
+  background-color: #3b3b58;
+  padding: 0px;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
 }
 
-/* Style for list items */
 .nav li {
-    display: inline-block;   
+  display: inline-block;
 }
 
-/* Style for links in navbar */
 .navbar-link {
-    color: white; 
-    margin: 15px; 
-    text-decoration: none; 
-    padding: 15px;
-    display: inline-block;
-    position: relative;
+  color: white;
+  margin: 15px;
+  text-decoration: none;
+  padding: 15px;
+  display: inline-block;
+  position: relative;
 }
 
-/* Style for hover effect on links */
 .nav li:hover {
-    background-color: #7A5980;
-
+  background-color: #7a5980;
 }
 
-/* Style for active link */
 .nav li.active {
-    background-color: #7A5980;
+  background-color: #7a5980;
 }
 
 /*----------------------------------------------------------------*/
 /* GLOBAL BODY AND HEADER */
 
 body {
-    font-family: Helvetica, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    font-size: 18px;
+  font-family: Helvetica, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
 
-    background-image: linear-gradient(#7A5980, #BC7C9C); /* Replace with your desired color */
-    background-size: cover;
-    background-attachment: fixed;
-    margin: 0;
+  background-image: linear-gradient(#7a5980, #bc7c9c);
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
 }
 
-
-/* Home Page - Title Text */
 h1 {
-    font-family: Helvetica, sans-serif;
-    font-size: 108px;
-    margin-top: 10%;
-    margin-bottom: 0;
-    color: #ffffff;
-    text-shadow: 0px 3px 3px rgba(0, 0, 0, 3); 
+  font-family: Helvetica, sans-serif;
+  font-size: 96px;
+  margin-top: 10%;
+  margin-bottom: 0;
+  color: #ffffff;
+  text-shadow: 0px 3px 3px rgba(0, 0, 0, 3);
 }
 h2 {
-    font-family: Helvetica, sans-serif;
-    font-size: 48px;
-    margin-top: 0px;
-    margin-bottom: 10px;
-    color: #ffffff;
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 1); 
-
+  font-family: Helvetica, sans-serif;
+  font-size: 48px;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  color: #ffffff;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
 }
 h3 {
-    font-family: Helvetica, sans-serif;
-    font-size: 24px;
-    margin-top: 0px;
-    color: #ffffff;
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 1); 
+  font-family: Helvetica, sans-serif;
+  font-size: 24px;
+  margin-top: 0px;
+  color: #ffffff;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
 }
 
-
 /*----------------------------------------------------------------*/
-/* HomePage - Sign Up button styling */
+/* Home Page - Sign Up button styling */
 
 .signupbtn {
-  background-color: #A96DA3;
-  border: 2px solid #3B3B58;
+  background-color: #a96da3;
+  border: 5px solid #3b3b58; /* Add a border around the container */
   border-radius: 30px;
-  margin-top: 75px;
+  margin-top: 30px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  color: #FFFFFF;
+  color: #ffffff;
   display: center;
   cursor: pointer;
   font-size: 48px;
   font-weight: 400;
-  text-shadow: 0px 0px 2px rgba(0, 0, 0, 1); 
-  min-width: 30px;
+  min-width: 3;
   overflow: visible;
-  padding: 10px 15px;
+  padding: 20px 25px;
   text-align: center;
+  transform: scale(0.6);
 }
 
 .signupbtn:hover {
-  background-image: linear-gradient(#3B3B58, #7A5980);
-  border-color: #3B3B58;
+  background-image: linear-gradient(#3b3b58, #7a5980);
+  border-color: #3b3b58;
   text-decoration: none;
 }
 
+/*----------------------------------------------------------------*/
+/* Sign Up Page  */
 
+.signup-box {
+  background-image: radial-gradient(#cf9893, #bc7c9c);
+  border: 10px solid #3b3b58; /* Add a border around the container */
+  border-radius: 100px; /* Add rounded corners to the container */
+  max-width: 50%; /* Set a maximum width for the container */
+  margin: 0 auto; /* Center the container on the page */
+  margin-top: 2.5%;
+  padding: 5%;
+  text-align: left;
+  color: white;
+  font-size: 36px;
+  transform: scale(0.6);
+  transform-origin: center top;
+}
 
+.button-signup-box {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+  margin-top: 10%;
+}
+
+.signup-page-btn {
+  background-color: #a96da3;
+  border-radius: 30px;
+  border: 5px solid #3b3b58; /* Add a border around the container */
+
+  margin: 0 auto;
+  position: relative;
+  margin-bottom: -20%;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 36px;
+  font-weight: 500;
+  min-width: 25%;
+  overflow: visible;
+  padding: 5% 15%;
+  text-align: center;
+}
+
+.signup-page-btn:hover {
+  background-image: linear-gradient(#3b3b58, #7a5980);
+  border-color: #3b3b58;
+  text-decoration: none;
+}
+
+.form-group label {
+  color: #3b3b58;
+  display: block;
+  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+.form-group input {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 24px;
+  padding-left: 2%;
+  border-radius: 20px;
+}
+
+.form-group textarea {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 24px;
+  padding-top: 2%;
+  padding-left: 2%;
+  border-radius: 20px;
+}
+
+#email,
+#username,
+#password {
+  height: 50px;
+  width: 75%;
+  resize: none;
+}
+
+#discord,
+#steam,
+#riotid {
+  height: 50px;
+  width: 50%;
+  resize: none;
+}
+
+#about {
+  width: 100%; /* Set the width to 100% or a specific value */
+  height: 200px; /* Set the desired height */
+  resize: none; /* Prevent resizing of the textarea */
+}
+
+.required {
+  color: red;
+  margin-left: 3px;
+}
+
+/*----------------------------------------------------------------*/
