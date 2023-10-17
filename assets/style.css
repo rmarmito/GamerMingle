@@ -118,5 +118,23 @@ h3 {
   text-decoration: none;
 }
 
+/*---------------*/
+/*SafetyPage*/
 
+/*SafetyPage - Safety box*/
+.safety-term-box-row{
+    display:flex;
+}
 
+.safety-term-box-col{
+    flex: 1;
+    padding:1em;
+    
+    width:200px;
+    height:100px;
+    max-height:100px;
+    background-color:#d0d0e6;
+    overflow:hidden;
+    border:2px solid #3B3B58;
+    overflow-y:auto;
+}
