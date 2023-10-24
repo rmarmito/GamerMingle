@@ -78,6 +78,16 @@ h3 {
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
 }
 
+footer {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  bottom: 0;
+  position: relative;
+  text-align: left;
+  text-indent: 10px;
+}
 /*----------------------------------------------------------------*/
 /* Home Page - Sign Up button styling */
 
@@ -156,56 +166,3 @@ h3 {
   border-color: #3b3b58;
   text-decoration: none;
 }
-
-.form-group label {
-  color: #3b3b58;
-  display: block;
-  margin-bottom: 10px;
-  border-radius: 20px;
-}
-
-.form-group input {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 24px;
-  padding-left: 2%;
-  border-radius: 20px;
-}
-
-.form-group textarea {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 24px;
-  padding-top: 2%;
-  padding-left: 2%;
-  border-radius: 20px;
-}
-
-#email,
-#username,
-#password {
-  height: 50px;
-  width: 75%;
-  resize: none;
-}
-
-#discord,
-#steam,
-#riotid {
-  height: 50px;
-  width: 50%;
-  resize: none;
-}
-
-#about {
-  width: 100%; /* Set the width to 100% or a specific value */
-  height: 200px; /* Set the desired height */
-  resize: none; /* Prevent resizing of the textarea */
-}
-
-.required {
-  color: red;
-  margin-left: 3px;
-}
-
-/*----------------------------------------------------------------*/
