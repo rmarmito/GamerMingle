@@ -6,7 +6,7 @@
     padding: 0;
     overflow: hidden;
     background-color: #3B3B58;
-
+    justify-content: flex-end;
 }
 
 /* Style for navbar */
@@ -45,8 +45,10 @@
 }
 
 .navbar-logo {
+    display: flex;
+    align-items: center;
+    /* Vertically center the logo */
     justify-content: flex-start;
-    display: inline-block;
 }
 
 /*----------------------------------------------------------------*/
