@@ -9,21 +9,18 @@
     justify-content: flex-end;
 }
 
-/* Style for navbar */
 .navbar {
-    background-color: #3B3B58;
-    padding: 0px;
-    display: flex;
-    justify-content: flex-end;
-    position: relative;
+  background-color: #3b3b58;
+  padding: 0px;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
 }
 
-/* Style for list items */
 .nav li {
     display: inline-block;
 }
 
-/* Style for links in navbar */
 .navbar-link {
     color: white;
     margin: 15px;
@@ -31,17 +28,15 @@
     padding: 15px;
     display: inline-block;
     position: relative;
+
 }
 
-/* Style for hover effect on links */
 .nav li:hover {
-    background-color: #7A5980;
-
+  background-color: #7a5980;
 }
 
-/* Style for active link */
 .nav li.active {
-    background-color: #7A5980;
+  background-color: #7a5980;
 }
 
 .navbar-logo {
@@ -55,21 +50,21 @@
 /* GLOBAL BODY AND HEADER */
 
 body {
-    font-family: Helvetica, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    font-size: 18px;
+  font-family: Helvetica, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+  text-align: center;
 
     background-image: linear-gradient(#7A5980, #BC7C9C);
     /* Replace with your desired color */
     background-size: cover;
     background-attachment: fixed;
     margin: 0;
+
 }
 
-
-/* Home Page - Title Text */
 h1 {
     font-family: Helvetica, sans-serif;
     font-size: 108px;
@@ -77,6 +72,7 @@ h1 {
     margin-bottom: 0;
     color: #ffffff;
     text-shadow: 0px 3px 3px rgba(0, 0, 0, 3);
+
 }
 
 h2 {
@@ -86,6 +82,7 @@ h2 {
     margin-bottom: 10px;
     color: #ffffff;
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
+
 
 }
 
@@ -109,10 +106,11 @@ footer {
     position: relative;
     text-align: left;
     text-indent: 10px;
+
 }
 
 /*----------------------------------------------------------------*/
-/* HomePage - Sign Up button styling */
+/* Home Page - Sign Up button styling */
 
 .signupbtn {
     background-color: #A96DA3;
@@ -137,10 +135,26 @@ footer {
     background-image: linear-gradient(#3B3B58, #7A5980);
     border-color: #3B3B58;
     text-decoration: none;
+
 }
 
-/*---------------*/
-/*SafetyPage*/
+/*----------------------------------------------------------------*/
+/* Sign Up Page  */
+
+.signup-box {
+  background-image: radial-gradient(#cf9893, #bc7c9c);
+  border: 10px solid #3b3b58; /* Add a border around the container */
+  border-radius: 100px; /* Add rounded corners to the container */
+  max-width: 50%; /* Set a maximum width for the container */
+  margin: 0 auto; /* Center the container on the page */
+  margin-top: 2.5%;
+  padding: 5%;
+  text-align: left;
+  color: white;
+  font-size: 36px;
+  transform: scale(0.6);
+  transform-origin: center top;
+}
 
 /*SafetyPage - Safety box*/
 .safety-term-box-row {
@@ -158,6 +172,7 @@ footer {
     overflow: hidden;
     border: 2px solid #3B3B58;
     overflow-y: auto;
+
 }
 
 /*LearnPage - Learn page cards*/
