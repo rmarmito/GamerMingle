@@ -18,16 +18,18 @@
 }
 
 .nav li {
-  display: inline-block;
+    display: inline-block;
+
 }
 
 .navbar-link {
-  color: white;
-  margin: 15px;
-  text-decoration: none;
-  padding: 15px;
-  display: inline-block;
-  position: relative;
+    color: white;
+    margin: 15px;
+    text-decoration: none;
+    padding: 15px;
+    display: inline-block;
+    position: relative;
+
 }
 
 .nav li:hover {
@@ -36,6 +38,11 @@
 
 .nav li.active {
   background-color: #7a5980;
+}
+
+.navbar-logo {
+    justify-content: flex-start;
+    display: inline-block;
 }
 
 /*----------------------------------------------------------------*/
@@ -49,90 +56,85 @@ body {
   font-size: 18px;
   text-align: center;
 
-  background-image: linear-gradient(#7a5980, #bc7c9c);
-  background-size: cover;
-  background-attachment: fixed;
-  margin: 0;
+    background-image: linear-gradient(#7A5980, #BC7C9C);
+    /* Replace with your desired color */
+    background-size: cover;
+    background-attachment: fixed;
+    margin: 0;
+
 }
 
 h1 {
-  font-family: Helvetica, sans-serif;
-  font-size: 96px;
-  margin-top: 10%;
-  margin-bottom: 0;
-  color: #ffffff;
-  text-shadow: 0px 3px 3px rgba(0, 0, 0, 3);
-  text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 108px;
+    margin-top: 10%;
+    margin-bottom: 0;
+    color: #ffffff;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 3);
+
 }
+
 h2 {
-  font-family: Helvetica, sans-serif;
-  font-size: 48px;
-  margin-top: 0px;
-  margin-bottom: 10px;
-  color: #ffffff;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
-  text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 48px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    color: #ffffff;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
+
+
 }
+
 h3 {
-  font-family: Helvetica, sans-serif;
-  font-size: 24px;
-  margin-top: 0px;
-  color: #ffffff;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
-  text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 24px;
+    margin-top: 0px;
+    color: #ffffff;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 1);
 }
+
+/*----------------------------------------------------------------*/
+/* Footer for all pages*/
 
 footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: #3b3b58;
-  color: white;
-  text-align: center;
-  padding: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    bottom: 0;
+    position: relative;
+    text-align: left;
+    text-indent: 10px;
+
 }
 
-footer ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-footer li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-footer a {
-  color: white;
-  text-decoration: none;
-}
 /*----------------------------------------------------------------*/
 /* Home Page - Sign Up button styling */
 
 .signupbtn {
-  background-color: #a96da3;
-  border: 5px solid #3b3b58; /* Add a border around the container */
-  border-radius: 30px;
-  margin-top: 30px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  color: #ffffff;
-  display: center;
-  cursor: pointer;
-  font-size: 48px;
-  font-weight: 400;
-  min-width: 3;
-  overflow: visible;
-  padding: 20px 25px;
-  text-align: center;
-  transform: scale(0.6);
+    background-color: #A96DA3;
+    border: 2px solid #3B3B58;
+    border-radius: 30px;
+    margin-top: 75px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: center;
+    cursor: pointer;
+    font-size: 48px;
+    font-weight: 400;
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 1);
+    min-width: 30px;
+    overflow: visible;
+    padding: 10px 15px;
+    text-align: center;
 }
 
 .signupbtn:hover {
-  background-image: linear-gradient(#3b3b58, #7a5980);
-  border-color: #3b3b58;
-  text-decoration: none;
+    background-image: linear-gradient(#3B3B58, #7A5980);
+    border-color: #3B3B58;
+    text-decoration: none;
+
 }
 
 /*----------------------------------------------------------------*/
@@ -153,35 +155,44 @@ footer a {
   transform-origin: center top;
 }
 
-.button-signup-box {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  width: 100%;
-  margin-top: 10%;
+/*SafetyPage - Safety box*/
+.safety-term-box-row {
+    display: flex;
 }
 
-.signup-page-btn {
-  background-color: #a96da3;
-  border-radius: 30px;
-  border: 5px solid #3b3b58; /* Add a border around the container */
+.safety-term-box-col {
+    flex: 1;
+    padding: 1em;
 
-  margin: 0 auto;
-  position: relative;
-  margin-bottom: -20%;
-  box-sizing: border-box;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 36px;
-  font-weight: 500;
-  min-width: 25%;
-  overflow: visible;
-  padding: 5% 15%;
-  text-align: center;
+    width: 200px;
+    height: 100px;
+    max-height: 100px;
+    background-color: #d0d0e6;
+    overflow: hidden;
+    border: 2px solid #3B3B58;
+    overflow-y: auto;
+
 }
 
-.signup-page-btn:hover {
-  background-image: linear-gradient(#3b3b58, #7a5980);
-  border-color: #3b3b58;
-  text-decoration: none;
+/*LearnPage - Learn page cards*/
+.learnpage-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.learnpage-card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1em;
+    max-width: 100%;
+    background-color: #d0d0e6;
+    border: 2px solid #3B3B58;
+    overflow-y: auto;
+    border-radius: 10px;
 }
