@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./components/styles/webStyles.css";
 import Footer from "./components/Footer";
@@ -15,6 +15,10 @@ import ActivityPage from "./components/ActivityPage";
 import ProfileEditPage from "./components/ProfileEditPage";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const login = () => {
+    setIsAuthenticated(true);
+  };
   return (
     <div className="app-container">
       {
@@ -23,15 +27,19 @@ function App() {
             <Route
               path="/"
               element={
-                <Layout>
-                  <SplashPage />
-                </Layout>
+                isAuthenticated ? (
+                  <Navigate to="/activity" />
+                ) : (
+                  <Layout isAuthenticated={isAuthenticated}>
+                    <SplashPage />
+                  </Layout>
+                )
               }
             />
             <Route
               path="/signup"
               element={
-                <Layout>
+                <Layout isAuthenticated={isAuthenticated}>
                   <SignupPage />
                 </Layout>
               }
@@ -39,7 +47,7 @@ function App() {
             <Route
               path="/login"
               element={
-                <Layout>
+                <Layout isAuthenticated={isAuthenticated}>
                   <LoginPage />
                 </Layout>
               }
@@ -47,7 +55,7 @@ function App() {
             <Route
               path="/learn"
               element={
-                <Layout>
+                <Layout isAuthenticated={isAuthenticated}>
                   <LearnPage />
                 </Layout>
               }
@@ -63,7 +71,7 @@ function App() {
             <Route
               path="/safety"
               element={
-                <Layout>
+                <Layout isAuthenticated={isAuthenticated}>
                   <SafetyPage />
                 </Layout>
               }
@@ -71,7 +79,7 @@ function App() {
             <Route
               path="/activity"
               element={
-                <Layout>
+                <Layout isAuthenticated={isAuthenticated}>
                   <ActivityPage />
                 </Layout>
               }
@@ -79,7 +87,7 @@ function App() {
             <Route
               path="/profile"
               element={
-                <Layout>
+                <Layout isAuthenticated={isAuthenticated}>
                   <ProfileEditPage />
                 </Layout>
               }

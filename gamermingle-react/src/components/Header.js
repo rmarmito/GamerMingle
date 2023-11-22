@@ -1,12 +1,19 @@
 import "./styles/customNavbar.css";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 
-function Navbar() {
+function Navbar({ isAuthenticated }) {
+  const currentLocation = useLocation(); // Define currentLocation using useLocation hook
+
   const headerStyles = {
     backgroundColor: "#3b3b58",
     padding: 10,
   };
+
+  const isHomeActive =
+    currentLocation.pathname === "/" ||
+    (isAuthenticated && currentLocation.pathname === "/activity");
+
   return (
     <div
       className="navbar navbar-expand-md navbar-light fixed-top"
@@ -61,12 +68,22 @@ function Navbar() {
           <li className="nav-item">
             <NavLink
               to="/"
-              className="nav-link text-light"
-              activeClassName="active"
+              className={`nav-link text-light ${isHomeActive ? "active" : ""}`}
             >
               Home
             </NavLink>
           </li>
+          {isAuthenticated && (
+            <li className="nav-item">
+              <NavLink
+                to="/profile"
+                className="nav-link text-light "
+                activeClassName="active"
+              >
+                Profile
+              </NavLink>
+            </li>
+          )}
           <li className="nav-item">
             <NavLink
               to="/safety"

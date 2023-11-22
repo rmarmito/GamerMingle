@@ -16,17 +16,17 @@ function LearnPage() {
     alignItems: "center",
   };
 
-  const topBoxStyles = {
-    background: "white",
-    border: "2px solid black",
-    borderRadius: "10px",
-    position: "absolute",
-    padding: "10px",
-    top: 125,
-    left: "50%",
-    transform: "translateX(-50%)",
-    zIndex: 1,
-  };
+  // const topBoxStyles = {
+  //   background: "white",
+  //   border: "2px solid black",
+  //   borderRadius: "10px",
+  //   position: "absolute",
+  //   padding: "10px",
+  //   top: 125,
+  //   left: "50%",
+  //   transform: "translateX(-50%)",
+  //   zIndex: 1,
+  // };
 
   return (
     <body>
