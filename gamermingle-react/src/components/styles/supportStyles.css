@@ -5,6 +5,13 @@
   min-height: 100vh;
   padding-top: 30px;
 }
+.support-container2 {
+  background-image: radial-gradient(#cf9893, #bc7c9c);
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding-top: 30px;
+}
 
 .back-btn {
   padding-left: 30px;
@@ -32,22 +39,26 @@ button.support-back-btn:hover {
 
 button.btn-support1 {
   background-color: #c3a29e;
-  border: 2px solid #3b3b58;
+  border: 1px solid #3b3b58;
+  border-radius: 0;
 }
 
 button.btn-support2 {
   background-color: #e8d8c5;
-  border: 2px solid #3b3b58;
+  border: 1px solid #3b3b58;
+  border-radius: 0;
 }
 
 button.btn-support3 {
   background-color: #fff4e9;
-  border: 2px solid #3b3b58;
+  border: 1px solid #3b3b58;
+  border-radius: 0;
 }
 
 button.btn-support4 {
   background-color: #ffffff;
-  border: 2px solid #3b3b58;
+  border: 1px solid #3b3b58;
+  border-radius: 0;
 }
 
 .btn-support1:hover,
@@ -67,4 +78,51 @@ button.btn-support4 {
 .custom-btn-size {
   padding: 15px 40px;
   font-size: 28px;
+}
+
+.report-form-container {
+  background-color: rgba(255, 255, 255, 0.3); /* Adjust for desired opacity */
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 80%; /* Adjust as needed */
+  max-width: 60%; /* Adjust as needed */
+}
+
+.report-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.report-form label {
+  margin-bottom: 10px;
+}
+
+.report-form input[type="text"],
+.report-form input[type="email"],
+.report-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.report-form input[type="submit"] {
+  background-color: #4caf50; /* Use your primary color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.report-form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+
+.report-form input::placeholder,
+.report-form textarea::placeholder {
+  color: #888;
 }

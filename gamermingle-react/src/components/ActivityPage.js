@@ -1,3 +1,7 @@
+import React, { useState } from "react";
+import PersonContainer from "./PersonContainer";
+import "react-bootstrap-icons";
+
 function ActivityPage() {
   const containersStyles = {
     paddingTop: "100px",
@@ -15,25 +19,22 @@ function ActivityPage() {
     height: "100vh",
   };
   const personsBoxStyles = {
-    backgroundColor: "#7a5980",
+    backgroundColor: "#bc7c9c",
     border: "10px solid #3b3b58",
     borderRadius: "0px",
     justifyContent: "center",
-    // marginBottom: "100px",
+    //marginBottom: "100px",
     textAlign: "left",
     color: "white",
     width: "100%",
     height: "100%", // Set a max height for scrollable content
-    overflowY: "auto", // Enable vertical scroll if content overflows
+    overflowY: "hidden", // Enable vertical scroll if content overflows
   };
 
-  const personListStyles = {
-    border: "2px solid #3b3b58",
-    borderRadius: "0px",
-    paddingBottom: "70px",
-    margin: "0px",
-    height: "20%", // Adjust the height as needed
-    width: "100%", // Adjust the width as needed
+  const personsBoxInnerStyles = {
+    overflowY: "auto",
+    height: "100%",
+    boxSizing: "content-box",
   };
 
   const chatBoxStyles = {
@@ -53,6 +54,7 @@ function ActivityPage() {
 
   const chatContainerStyles = {
     border: "2px solid #3b3b58",
+    backgroundColor: "#bc7c9c",
     borderRadius: "10px",
     padding: "10px",
     height: "90%", // Set a max height for scrollable content
@@ -68,33 +70,39 @@ function ActivityPage() {
   return (
     <div className="row p-0 m-0" style={{ width: "100%" }}>
       <div className="col-md-3 d-flex" style={personsContainerStyles}>
+        {/* list of people to chat with */}
         <div className="persons-box shadow-lg" style={personsBoxStyles}>
-          <div className="person-container" style={personListStyles}>
-            <p className="text-center fw-bold">placeholder person</p>
-          </div>
-          <div className="person-container" style={personListStyles}>
-            {" "}
-            <p className="text-center fw-bold">placeholder person</p>
-          </div>
-          <div className="person-container" style={personListStyles}>
-            {" "}
-            <p className="text-center fw-bold">placeholder person</p>
-          </div>
-          <div className="person-container" style={personListStyles}>
-            {" "}
-            <p className="text-center fw-bold">placeholder person</p>
-          </div>
-          <div className="person-container" style={personListStyles}>
-            {" "}
-            <p className="text-center fw-bold">placeholder person</p>
-          </div>
-          <div className="person-container" style={personListStyles}>
-            {" "}
-            <p className="text-center fw-bold">placeholder person</p>
-          </div>
-          <div className="person-container" style={personListStyles}>
-            {" "}
-            <p className="text-center fw-bold">placeholder person</p>
+          <div style={personsBoxInnerStyles}>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
+            <PersonContainer>
+              <p className="text-center fw-bold"></p>
+            </PersonContainer>
           </div>
         </div>
       </div>

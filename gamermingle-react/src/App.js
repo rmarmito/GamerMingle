@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import "./components/styles/webStyles.css";
 import Footer from "./components/Footer";
 
@@ -13,9 +14,10 @@ import SupportPage from "./components/SupportPage";
 import SafetyPage from "./components/SafetyPage";
 import ActivityPage from "./components/ActivityPage";
 import ProfileEditPage from "./components/ProfileEditPage";
+import ReportPage from "./components/SupportReportPage";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(true); // assume logged in
   const login = () => {
     setIsAuthenticated(true);
   };
@@ -65,6 +67,15 @@ function App() {
               element={
                 <>
                   <SupportPage /> <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/report"
+              element={
+                <>
+                  <ReportPage />
+                  <Footer />
                 </>
               }
             />

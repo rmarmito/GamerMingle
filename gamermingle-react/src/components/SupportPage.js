@@ -49,14 +49,6 @@ function SupportPage() {
               aria-label="Search"
               aria-describedby="search-addon"
             />
-            {/* icon for the search */}
-            {/* <span class="input-group-text border-0" id="search-addon">
-            <img
-              src={process.env.PUBLIC_URL + "/images/search.svg"}
-              alt="Logo"
-              className="img-fluid mr-2"
-            />
-          </span> */}
           </div>
         </div>
 
@@ -77,12 +69,14 @@ function SupportPage() {
             >
               Feedback
             </button>
-            <button
-              type="button"
-              class="btn btn-support3 btn-lg custom-btn-size"
-            >
-              Report
-            </button>
+            <Link to="/report">
+              <button
+                type="button"
+                class="btn btn-support3 btn-lg custom-btn-size"
+              >
+                Report
+              </button>
+            </Link>
             <button
               type="button"
               class="btn btn-support4 btn-lg custom-btn-size"
