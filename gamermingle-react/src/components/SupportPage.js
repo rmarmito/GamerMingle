@@ -77,12 +77,14 @@ function SupportPage() {
                 Report
               </button>
             </Link>
-            <button
-              type="button"
-              class="btn btn-support4 btn-lg custom-btn-size"
-            >
-              Contact Us
-            </button>
+            <Link to="/contact">
+              <button
+                type="button"
+                class="btn btn-support4 btn-lg custom-btn-size"
+              >
+                Contact Us
+              </button>
+            </Link>
           </div>
         </div>
       </div>

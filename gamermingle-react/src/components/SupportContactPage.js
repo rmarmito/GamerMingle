@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./styles/supportStyles.css"; // Make sure this CSS file has the updated styles you provided
 
-function ReportPage() {
+function ContactPage() {
   return (
     <div className="support-container2">
       <div className="back-btn">
@@ -27,18 +27,18 @@ function ReportPage() {
       </div>
 
       <h2
-        className="display-4 text-light text-center pt-0"
+        className="display-4 text-light text-left"
         style={{ fontWeight: "bold" }}
       >
-        Report Form
+        Don't Worry,
+        <br />
+        we won't leave you on read.
       </h2>
-      <p className="text-center text-light">
-        We take the privacy, safety, and comfort of our community very
-        seriously. <br />
-        See our Conduct Policy by clicking here.
+      <p className="text-center text-light text-left">
+        We just need a few information.
       </p>
     </div>
   );
 }
 
-export default ReportPage;
+export default ContactPage;

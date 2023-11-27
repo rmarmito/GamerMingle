@@ -111,6 +111,17 @@ function Navbar({ isAuthenticated }) {
               Support
             </NavLink>
           </li>
+          {isAuthenticated && (
+            <li className="nav-item">
+              <NavLink
+                to="/home"
+                className="nav-link text-warning "
+                activeClassName="active"
+              >
+                Log Out
+              </NavLink>
+            </li>
+          )}
         </ul>
       </div>
     </div>

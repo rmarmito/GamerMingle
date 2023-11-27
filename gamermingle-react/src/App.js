@@ -15,6 +15,7 @@ import SafetyPage from "./components/SafetyPage";
 import ActivityPage from "./components/ActivityPage";
 import ProfileEditPage from "./components/ProfileEditPage";
 import ReportPage from "./components/SupportReportPage";
+import ContactPage from "./components/SupportContactPage";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(true); // assume logged in
@@ -75,6 +76,15 @@ function App() {
               element={
                 <>
                   <ReportPage />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/contact"
+              element={
+                <>
+                  <ContactPage />
                   <Footer />
                 </>
               }
