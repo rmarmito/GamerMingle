@@ -18,7 +18,7 @@ import ReportPage from "./components/SupportReportPage";
 import ContactPage from "./components/SupportContactPage";
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // assume logged in
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // assume logged in
   const login = () => {
     setIsAuthenticated(true);
   };
