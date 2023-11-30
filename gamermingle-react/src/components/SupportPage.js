@@ -63,12 +63,15 @@ function SupportPage() {
             >
               FAQ
             </button>
-            <button
-              type="button"
-              class="btn btn-support2 btn-lg custom-btn-size"
-            >
-              Feedback
-            </button>
+
+            <Link to="/feedback">
+              <button
+                type="button"
+                class="btn btn-support2 btn-lg custom-btn-size"
+              >
+                Feedback
+              </button>
+            </Link>
             <Link to="/report">
               <button
                 type="button"

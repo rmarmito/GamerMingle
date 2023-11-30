@@ -16,7 +16,7 @@ import ActivityPage from "./components/ActivityPage";
 import ProfileEditPage from "./components/ProfileEditPage";
 import ReportPage from "./components/SupportReportPage";
 import ContactPage from "./components/SupportContactPage";
-
+import FeedbackPage from "./components/SupportFeedbackPage";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false); // assume logged in
   const login = () => {
@@ -85,6 +85,15 @@ function App() {
               element={
                 <>
                   <ContactPage />
+                  <Footer />
+                </>
+              }
+            />
+            <Route
+              path="/feedback"
+              element={
+                <>
+                  <FeedbackPage />
                   <Footer />
                 </>
               }

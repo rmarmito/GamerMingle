@@ -14,19 +14,19 @@ function ReportPage() {
     border: "2px solid white",
     justifyContent: "center",
     marginBottom: "100px",
-    paddingBlock: "30px",
-    paddingInline: "25px",
+    paddingBlock: "15px",
+    paddingInline: "15px",
     textAlign: "left",
     color: "white",
-    width: "1000px",
+    width: "900px",
   };
 
   return (
     <div className="support-container2">
       <div className="back-btn">
-        <Link to="/">
+        <Link to="/support">
           <button className="btn support-back-btn btn-primary btn-lg">
-            <strong>Back to GamerMingle</strong>
+            <strong>Back to Support</strong>
           </button>
         </Link>
       </div>
@@ -37,6 +37,7 @@ function ReportPage() {
             width: "100px",
             height: "100px",
             margin: "0px",
+            marginTop: "-80px", // Adjust this value to move the logo higher
             alignItems: "center",
           }}
           alt="Logo"
@@ -61,18 +62,16 @@ function ReportPage() {
             <div className="col">
               <div className="row">
                 <div className="col-md-5">
-                  <Form id="report-form">
-                    <Form.Group controlId="username" className="mb-3">
-                      <Form.Label>Individual you are reporting*</Form.Label>
-                      <Form.Control
-                        type="username"
-                        placeholder="Username"
-                        required
-                      />
-                    </Form.Group>
-                  </Form>
+                  <Form.Group controlId="username" className="mb-3">
+                    <Form.Label>Individual you are reporting*</Form.Label>
+                    <Form.Control
+                      type="username"
+                      placeholder="Username"
+                      required
+                    />
+                  </Form.Group>
                 </div>
-                <div className="col-md-12">
+                <div className="col-md-7">
                   <Form.Group controlId="incident_date">
                     <Form.Label>Date incident started*</Form.Label>
                     <Form.Control
@@ -84,30 +83,42 @@ function ReportPage() {
                 </div>
               </div>
             </div>
-            <Form>
-              <Form.Group controlId="incident" className="mb-3">
-                <Form.Label>What happened?*</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  type="username"
-                  placeholder="Please be as concise as possible"
-                  rows={5}
-                  required
-                />
-              </Form.Group>
-
-              <Form.Group controlId="username" className="mb-3">
-                <Form.Label>
-                  Your contact information so we can get back to you. We will
-                  not share this with anyone.
-                </Form.Label>
-                <Form.Control
-                  type="victim_username"
-                  placeholder="Your Username"
-                  required
-                />
-              </Form.Group>
-            </Form>
+            <Form.Group controlId="incident" className="mb-3">
+              <Form.Label>What happened?*</Form.Label>
+              <Form.Control
+                as="textarea"
+                type="username"
+                placeholder="Please be as concise as possible"
+                rows={5}
+                required
+              />
+            </Form.Group>
+            <div className="col">
+              <p>
+                Your contact information so we can get back to you. <br />
+                We will not share this with anyone.
+              </p>
+              <div className="row">
+                <div className="col-md-5">
+                  <Form.Group controlId="victim_username" className="mb-3">
+                    <Form.Control
+                      type="victim_username"
+                      placeholder="Your Username"
+                      required
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col-md-7">
+                  <Form.Group controlId="victim_email">
+                    <Form.Control
+                      type="victim_email"
+                      placeholder="youremail@email.com"
+                      required
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+            </div>
           </div>
           <div className="button-signup-box justify-content-center d-flex pt-3">
             <button className="btn loginpage-btn btn-primary btn-lg">
