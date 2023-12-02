@@ -98,6 +98,7 @@ function App() {
                 </>
               }
             />
+
             <Route
               path="/safety"
               element={

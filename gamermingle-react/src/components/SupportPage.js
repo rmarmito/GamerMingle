@@ -57,12 +57,14 @@ function SupportPage() {
         </p>
         <div className="d-flex justify-content-center">
           <div class="btn-group btn-group-lg " role="group" aria-label="...">
-            <button
-              type="button"
-              class="btn btn-support1 btn-lg custom-btn-size"
-            >
-              FAQ
-            </button>
+            <Link to="/learn">
+              <button
+                type="button"
+                class="btn btn-support1 btn-lg custom-btn-size"
+              >
+                FAQ
+              </button>
+            </Link>
 
             <Link to="/feedback">
               <button

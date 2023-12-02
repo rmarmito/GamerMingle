@@ -14,7 +14,7 @@ function SafetyPage() {
     display: "flex",
     justifyContent: "space-between",
     paddingTop: "150px",
-    minHeight: "100vh",
+    minHeight: "100%",
     position: "relative",
   };
 
