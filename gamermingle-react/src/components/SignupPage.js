@@ -20,7 +20,7 @@ function SignupForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const url = "http://localhost:8000/api/create_user/"; // Replace with your API endpoint
+    const url = "http://localhost:8000/api/create_user/";
 
     const formDataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
@@ -38,7 +38,6 @@ function SignupForm() {
         console.log(response.data);
         setSuccessMessage("Account created successfully!");
         setErrorMessage("");
-        // Optionally reset the form here
         setFormData({
           username: "",
           email: "",
@@ -54,7 +53,10 @@ function SignupForm() {
       }
     } catch (error) {
       console.error("Error creating account:", error);
-      setErrorMessage("Failed to create account. Please try again.");
+      setErrorMessage(
+        "Failed to create account. Please try again.",
+        error.response.data
+      );
       setSuccessMessage("");
     }
   };
@@ -146,7 +148,8 @@ function SignupForm() {
                     Password<span className="required">*</span>:
                   </Form.Label>
                   <Form.Control
-                    type="password"
+                    type="text"
+                    name="password"
                     placeholder="password"
                     required
                     onChange={handleInputChange}
@@ -157,6 +160,7 @@ function SignupForm() {
                   <Form.Label>Discord:</Form.Label>
                   <Form.Control
                     type="text"
+                    name="discord"
                     placeholder="Discord username"
                     onChange={handleInputChange}
                     value={formData.discord}
@@ -166,6 +170,7 @@ function SignupForm() {
                   <Form.Label>Steam:</Form.Label>
                   <Form.Control
                     type="text"
+                    name="steam"
                     placeholder="Steam username"
                     onChange={handleInputChange}
                     value={formData.steam}
@@ -175,6 +180,7 @@ function SignupForm() {
                   <Form.Label>Riot ID:</Form.Label>
                   <Form.Control
                     type="text"
+                    name="riotid"
                     placeholder="Riot ID"
                     onChange={handleInputChange}
                     value={formData.riotid}
@@ -189,6 +195,7 @@ function SignupForm() {
                       <Form.Label>About You:</Form.Label>
                       <Form.Control
                         as="textarea"
+                        name="about"
                         rows={15}
                         placeholder="tell us about yourself..."
                         className="form-control-md pb-4"
