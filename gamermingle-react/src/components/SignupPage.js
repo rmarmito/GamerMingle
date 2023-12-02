@@ -1,7 +1,73 @@
 import { Form } from "react-bootstrap";
 import "./styles/webStyles.css";
+import React, { useState } from "react";
+import axios from "axios";
 
 function SignupForm() {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+    discord: "",
+    steam: "",
+    riotid: "",
+    about: "",
+    profilePicture: null,
+  });
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const url = "http://localhost:8000/api/create_user/"; // Replace with your API endpoint
+
+    const formDataToSend = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataToSend.append(key, value);
+    });
+
+    try {
+      const response = await axios.post(url, formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      if (response.status === 201) {
+        console.log(response.data);
+        setSuccessMessage("Account created successfully!");
+        setErrorMessage("");
+        // Optionally reset the form here
+        setFormData({
+          username: "",
+          email: "",
+          password: "",
+          discord: "",
+          steam: "",
+          riotid: "",
+          about: "",
+          profilePicture: null,
+        });
+      } else {
+        // Handle non-201 responses if needed
+      }
+    } catch (error) {
+      console.error("Error creating account:", error);
+      setErrorMessage("Failed to create account. Please try again.");
+      setSuccessMessage("");
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFileChange = (e) => {
+    setFormData({ ...formData, profilePicture: e.target.files[0] });
+  };
+
   const signupContainerStyles = {
     display: "flex",
     justifyContent: "center",
@@ -41,6 +107,12 @@ function SignupForm() {
             Lock In.{" "}
           </p>
           <Form id="signup-form" style={signupTextStyles}>
+            {successMessage && (
+              <div className="alert alert-success">{successMessage}</div>
+            )}
+            {errorMessage && (
+              <div className="alert alert-danger">{errorMessage}</div>
+            )}
             <div className="row">
               <div className="col-md-4">
                 <Form.Group controlId="username">
@@ -48,16 +120,26 @@ function SignupForm() {
                     Username<span className="required">*</span>:
                   </Form.Label>
                   <Form.Control
-                    type="username"
+                    type="text"
+                    name="username"
                     placeholder="username"
                     required
+                    onChange={handleInputChange}
+                    value={formData.username}
                   />
                 </Form.Group>
                 <Form.Group controlId="email">
                   <Form.Label>
                     Email<span className="required">*</span>:
                   </Form.Label>
-                  <Form.Control type="email" placeholder="email" required />
+                  <Form.Control
+                    type="text"
+                    name="email"
+                    placeholder="youremail@email.com"
+                    required
+                    onChange={handleInputChange}
+                    value={formData.email}
+                  />
                 </Form.Group>
                 <Form.Group controlId="password">
                   <Form.Label>
@@ -67,19 +149,36 @@ function SignupForm() {
                     type="password"
                     placeholder="password"
                     required
+                    onChange={handleInputChange}
+                    value={formData.password}
                   />
                 </Form.Group>
                 <Form.Group controlId="discord">
                   <Form.Label>Discord:</Form.Label>
-                  <Form.Control type="text" placeholder="Discord username" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Discord username"
+                    onChange={handleInputChange}
+                    value={formData.discord}
+                  />
                 </Form.Group>
                 <Form.Group controlId="steam">
                   <Form.Label>Steam:</Form.Label>
-                  <Form.Control type="text" placeholder="Steam username" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Steam username"
+                    onChange={handleInputChange}
+                    value={formData.steam}
+                  />
                 </Form.Group>
                 <Form.Group controlId="riotid">
                   <Form.Label>Riot ID:</Form.Label>
-                  <Form.Control type="text" placeholder="Riot ID" />
+                  <Form.Control
+                    type="text"
+                    placeholder="Riot ID"
+                    onChange={handleInputChange}
+                    value={formData.riotid}
+                  />
                 </Form.Group>
               </div>
 
@@ -93,6 +192,8 @@ function SignupForm() {
                         rows={15}
                         placeholder="tell us about yourself..."
                         className="form-control-md pb-4"
+                        onChange={handleInputChange}
+                        value={formData.about}
                       />
                     </Form.Group>
                   </div>
@@ -118,6 +219,7 @@ function SignupForm() {
                           type="file"
                           className="form-control"
                           id="inputGroupFile02"
+                          onChange={handleFileChange}
                         />
                         <label
                           className="input-group-text"
@@ -132,8 +234,14 @@ function SignupForm() {
               </div>
             </div>
           </Form>
-          <div className="button-signup-box justify-content-center d-flex pt-3">
-            <button className="btn create-btn btn-primary btn-md">
+          <div
+            type="submit"
+            className="button-signup-box justify-content-center d-flex pt-3"
+          >
+            <button
+              className="btn create-btn btn-primary btn-md"
+              onClick={handleSubmit}
+            >
               <strong>Create Account</strong>
             </button>
           </div>
