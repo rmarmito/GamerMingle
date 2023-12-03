@@ -30,6 +30,10 @@ function SafetyPage() {
     zIndex: 1,
   };
 
+  const strongHighlight = {
+    color: "#592E83",
+  };
+
   return (
     <body>
       <div className="safety-container" style={safetyContainerStyles}>
@@ -46,20 +50,47 @@ function SafetyPage() {
                 Safety @ GamerMingle
               </p>
             </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-              tempor pretium dapibus. Suspendisse varius, ex ac auctor pharetra,
-              mi purus ultrices leo, et tincidunt urna nunc at ex. Etiam lacinia
-              nunc id tortor tempus interdum. Integer ornare et nunc quis
-              pellentesque. In hac habitasse platea dictumst. Fusce auctor orci
-              nec velit molestie, eu fermentum mauris varius. Ut eget magna
-              augue. Donec ut auctor lectus. Suspendisse potenti. Cras convallis
-              dui purus, vel volutpat dui maximus at. Curabitur mollis sem erat,
-              eu laoreet quam volutpat non. Duis laoreet neque sit amet dolor
-              viverra hendrerit. Praesent pharetra consequat fringilla. In in
-              ligula dui. Cras maximus viverra mollis. Aliquam eget aliquam
-              nulla.
-            </p>
+            <ul>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Avoid Financial Risks:
+                </strong>{" "}
+                <br />
+                Never transfer money via wire, and do not share financial
+                details. Report money requests.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Guard Your Personal Data:
+                </strong>{" "}
+                <br />
+                Don't share sensitive information like social security numbers
+                or addresses. Parents should be extra cautious.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Stay within GamerMingle for Initial Conversations:
+                </strong>{" "}
+                <br />
+                Use our chat features for early interactions for added security.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Identify and Report Inappropriate Behavior:
+                </strong>{" "}
+                <br />
+                Report violations such as soliciting funds, harassment, fake
+                profiles, and more.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Secure Your GamerMingle Account:
+                </strong>{" "}
+                <br />
+                Use a strong password and be cautious on public devices. We will
+                never ask for your password via email.
+              </li>
+            </ul>
           </div>
 
           <div

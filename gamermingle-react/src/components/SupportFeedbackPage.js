@@ -7,7 +7,7 @@ function FeedbackPage() {
   const contactContainerStyles = {
     display: "flex",
     justifyContent: "center",
-    paddingRight: "30px",
+    paddingRight: "0px",
   };
 
   const contactFormStyles = {
@@ -15,8 +15,8 @@ function FeedbackPage() {
     border: "2px solid white",
     justifyContent: "center",
     marginBottom: "100px",
-    paddingBlock: "30px",
-    paddingInline: "25px",
+    paddingBlock: "10px",
+    paddingInline: "15px",
     textAlign: "left",
     color: "white",
     width: "1000px",
@@ -162,7 +162,7 @@ function FeedbackPage() {
               />
             </Form.Group>
 
-            <div className="button-signup-box justify-content-center d-flex pt-3">
+            <div className="button-signup-box justify-content-center d-flex pt-0">
               <button className="btn loginpage-btn btn-primary btn-lg">
                 <strong>Submit Feedback</strong>
               </button>

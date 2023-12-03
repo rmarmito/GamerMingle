@@ -20,7 +20,7 @@ function ContactPage() {
     paddingInline: "25px",
     textAlign: "left",
     color: "white",
-    width: "1000px",
+    width: "1100px",
   };
 
   const reportBoxStyles = {
@@ -180,7 +180,7 @@ function ContactPage() {
                 as="textarea"
                 type="inquirycontact"
                 placeholder="Please be as concise as possible"
-                rows={5}
+                rows={3}
                 required
               />
             </Form.Group>

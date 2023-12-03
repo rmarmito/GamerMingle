@@ -29,11 +29,10 @@ function LoginForm() {
       localStorage.setItem("token", response.data.access);
 
       login();
-      navigate("/profile");
+      navigate("/activity");
     } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.log(error.response.data);
         setErrorMessage("Failed to log in. Please check your credentials.");
       } else if (error.request) {

@@ -1,11 +1,17 @@
 import "./styles/customNavbar.css";
 import React from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext"; // Import useAuth
 
 function Navbar({}) {
   const { isAuthenticated, logout } = useAuth(); // Use isAuthenticated and logout from AuthContext
   const currentLocation = useLocation(); // Define currentLocation using useLocation hook
+
+  const navigate = useNavigate(); // Define navigate using useNavigate hook
+  const handleLogout = () => {
+    logout();
+    navigate("/"); // Redirect to home page after logging out
+  };
 
   const headerStyles = {
     backgroundColor: "#3b3b58",
@@ -116,9 +122,10 @@ function Navbar({}) {
           {isAuthenticated && (
             <li className="nav-item">
               <NavLink
-                to="/home"
-                className="nav-link text-warning "
+                to="/"
+                className="nav-link text-warning"
                 activeClassName="active"
+                onClick={handleLogout}
               >
                 Log Out
               </NavLink>
