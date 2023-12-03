@@ -3,7 +3,7 @@ import React from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext"; // Import useAuth
 
-function Navbar({}) {
+function Navbar() {
   const { isAuthenticated, logout } = useAuth(); // Use isAuthenticated and logout from AuthContext
   const currentLocation = useLocation(); // Define currentLocation using useLocation hook
 

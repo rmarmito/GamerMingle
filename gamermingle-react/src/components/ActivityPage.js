@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import PersonContainer from "./PersonContainer";
-import "react-bootstrap-icons";
 
 function ActivityPage() {
   const containersStyles = {

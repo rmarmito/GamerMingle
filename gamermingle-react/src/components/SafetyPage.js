@@ -102,20 +102,64 @@ function SafetyPage() {
                 Code of Conduct
               </p>
             </div>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-              tempor pretium dapibus. Suspendisse varius, ex ac auctor pharetra,
-              mi purus ultrices leo, et tincidunt urna nunc at ex. Etiam lacinia
-              nunc id tortor tempus interdum. Integer ornare et nunc quis
-              pellentesque. In hac habitasse platea dictumst. Fusce auctor orci
-              nec velit molestie, eu fermentum mauris varius. Ut eget magna
-              augue. Donec ut auctor lectus. Suspendisse potenti. Cras convallis
-              dui purus, vel volutpat dui maximus at. Curabitur mollis sem erat,
-              eu laoreet quam volutpat non. Duis laoreet neque sit amet dolor
-              viverra hendrerit. Praesent pharetra consequat fringilla. In in
-              ligula dui. Cras maximus viverra mollis. Aliquam eget aliquam
-              nulla.
-            </p>
+            <ol>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Respect for All Members
+                </strong>
+                <br />
+                Treat all members with respect, regardless of their skill level, game preferences, age, gender, race, ethnicity, religion, or any other characteristic.
+                Abusive language, harassment, bullying, and discrimination are strictly prohibited.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Positive Gaming Environment
+                </strong>
+                <br />
+                Encourage a supportive atmosphere where all gamers feel welcome.
+                Constructive feedback is appreciated; derogatory remarks are not.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  No Spam or Commercial Activity
+                </strong>
+                <br />
+                Refrain from spamming or promoting commercial interests, such as selling accounts or in-game items.
+                The platform is for making connections, not for commercial transactions.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}> 
+                  Privacy and Safety
+                </strong>
+                <br />
+                Do not share personal information of others without consent.
+                Be cautious about sharing your own personal information.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Honesty and Integrity
+                </strong>
+                <br />
+                Be honest in your interactions and intentions.
+                Do not impersonate other individuals or create multiple accounts for deceptive purposes.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Reporting and Accountability
+                </strong>
+                <br />
+                Report any behavior that violates these guidelines.
+                Users found violating the Code of Conduct may face consequences, including temporary suspension or permanent account deletion.
+              </li>
+              <li>
+                <strong style={{ ...strongHighlight }}>
+                  Age Appropriate Behavior
+                </strong>
+                <br />
+                Adhere to age ratings of games when forming groups.
+                Be mindful of the presence of younger gamers in terms of language and content.
+              </li>
+            </ol>
           </div>
         </div>
       </div>
