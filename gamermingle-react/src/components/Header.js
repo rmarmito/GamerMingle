@@ -1,8 +1,10 @@
 import "./styles/customNavbar.css";
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
+import { useAuth } from "./AuthContext"; // Import useAuth
 
-function Navbar({ isAuthenticated }) {
+function Navbar({}) {
+  const { isAuthenticated, logout } = useAuth(); // Use isAuthenticated and logout from AuthContext
   const currentLocation = useLocation(); // Define currentLocation using useLocation hook
 
   const headerStyles = {
@@ -67,7 +69,7 @@ function Navbar({ isAuthenticated }) {
         >
           <li className="nav-item">
             <NavLink
-              to="/"
+              to={isAuthenticated ? "/activity" : "/"}
               className={`nav-link text-light ${isHomeActive ? "active" : ""}`}
             >
               Home

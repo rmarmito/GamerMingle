@@ -1,10 +1,13 @@
-import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./components/AuthContext";
+import { AuthRoute } from "./components/AuthRoute";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./components/styles/webStyles.css";
-import Footer from "./components/Footer";
 
+import Footer from "./components/Footer";
 import Layout from "./PageLayout";
 import SplashPage from "./components/SplashPage";
 import SignupPage from "./components/SignupPage";
@@ -17,32 +20,25 @@ import ProfileEditPage from "./components/ProfileEditPage";
 import ReportPage from "./components/SupportReportPage";
 import ContactPage from "./components/SupportContactPage";
 import FeedbackPage from "./components/SupportFeedbackPage";
+
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // assume logged in
-  const login = () => {
-    setIsAuthenticated(true);
-  };
   return (
-    <div className="app-container">
-      {
+    <AuthProvider>
+      <div className="app-container">
         <BrowserRouter>
           <Routes>
             <Route
               path="/"
               element={
-                isAuthenticated ? (
-                  <Navigate to="/activity" />
-                ) : (
-                  <Layout isAuthenticated={isAuthenticated}>
-                    <SplashPage />
-                  </Layout>
-                )
+                <Layout>
+                  <SplashPage />
+                </Layout>
               }
             />
             <Route
               path="/signup"
               element={
-                <Layout isAuthenticated={isAuthenticated}>
+                <Layout>
                   <SignupPage />
                 </Layout>
               }
@@ -50,7 +46,7 @@ function App() {
             <Route
               path="/login"
               element={
-                <Layout isAuthenticated={isAuthenticated}>
+                <Layout>
                   <LoginPage />
                 </Layout>
               }
@@ -58,7 +54,7 @@ function App() {
             <Route
               path="/learn"
               element={
-                <Layout isAuthenticated={isAuthenticated}>
+                <Layout>
                   <LearnPage />
                 </Layout>
               }
@@ -67,7 +63,8 @@ function App() {
               path="/support"
               element={
                 <>
-                  <SupportPage /> <Footer />
+                  <SupportPage />
+                  <Footer />
                 </>
               }
             />
@@ -98,11 +95,10 @@ function App() {
                 </>
               }
             />
-
             <Route
               path="/safety"
               element={
-                <Layout isAuthenticated={isAuthenticated}>
+                <Layout>
                   <SafetyPage />
                 </Layout>
               }
@@ -110,23 +106,27 @@ function App() {
             <Route
               path="/activity"
               element={
-                <Layout isAuthenticated={isAuthenticated}>
-                  <ActivityPage />
-                </Layout>
+                <AuthRoute>
+                  <Layout>
+                    <ActivityPage />
+                  </Layout>
+                </AuthRoute>
               }
             />
             <Route
               path="/profile"
               element={
-                <Layout isAuthenticated={isAuthenticated}>
-                  <ProfileEditPage />
-                </Layout>
+                <AuthRoute>
+                  <Layout>
+                    <ProfileEditPage />
+                  </Layout>
+                </AuthRoute>
               }
             />
           </Routes>
         </BrowserRouter>
-      }
-    </div>
+      </div>
+    </AuthProvider>
   );
 }
 

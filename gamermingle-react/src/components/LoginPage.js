@@ -3,8 +3,11 @@ import "./styles/webStyles.css";
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./AuthContext.js";
 
 function LoginForm() {
+  const { login } = useAuth(); // Get login function
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,6 +28,7 @@ function LoginForm() {
       console.log(response.data);
       localStorage.setItem("token", response.data.access);
 
+      login();
       navigate("/profile");
     } catch (error) {
       if (error.response) {
@@ -33,7 +37,6 @@ function LoginForm() {
         console.log(error.response.data);
         setErrorMessage("Failed to log in. Please check your credentials.");
       } else if (error.request) {
-        // The request was made but no response was received
         console.log(error.request);
       } else {
         // Something happened in setting up the request that triggered an Error
