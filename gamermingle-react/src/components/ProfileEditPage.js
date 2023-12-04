@@ -54,7 +54,17 @@ function ProfileEditPage() {
                 <Form.Label>
                   Password<span className="required">*</span>:
                 </Form.Label>
-                <Form.Control type="password" placeholder="password" required />
+                <Form.Control type="password" placeholder="Password" required />
+              </Form.Group>
+              <Form.Group controlId="confirm">
+                <Form.Label>
+                  Confirm Password<span className="required">*</span>:
+                </Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Confirm Password"
+                  required
+                />
               </Form.Group>
               <Form.Group controlId="discord">
                 <Form.Label>Discord:</Form.Label>
@@ -77,6 +87,11 @@ function ProfileEditPage() {
                   className="form-control-sm"
                 />
               </Form.Group>
+              <div className="pt-3 text-center">
+                <button className="btn signup-btn btn-primary m-0 shadow">
+                  <strong>Update Profile</strong>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -85,7 +100,10 @@ function ProfileEditPage() {
             <div className="col">
               <div className="profile-picture-container" style={mediaBoxStyles}>
                 <Form.Group controlId="profilePicture">
-                  <Form.Label>Profile Picture:</Form.Label>
+                  <Form.Label>
+                    {" "}
+                    <strong className="fs-5">Profile Picture:</strong>
+                  </Form.Label>
                   <br />
                   <div className="d-flex justify-content-center border mb-3">
                     <img
@@ -121,7 +139,9 @@ function ProfileEditPage() {
                 style={{ ...mediaBoxStyles, marginTop: "5px" }}
               >
                 <Form.Group controlId="profileMedia">
-                  <Form.Label>Media Content:</Form.Label>
+                  <Form.Label>
+                    <strong className="fs-5">Media Content:</strong>
+                  </Form.Label>
                   <br />
                   <div className="d-flex justify-content-center border mb-3">
                     <img

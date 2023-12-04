@@ -135,7 +135,7 @@ function ActivityPage() {
     border: "2px solid #3b3b58",
     borderRadius: "30px",
     padding: "10px",
-    height: "300px", // Set a max height for scrollable content
+    height: "350px", // Set a max height for scrollable content
   };
 
   return (

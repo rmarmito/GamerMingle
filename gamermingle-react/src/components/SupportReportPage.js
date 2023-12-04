@@ -46,7 +46,7 @@ function ReportPage() {
       </div>
 
       <h2
-        className="display-4 text-light text-center pt-0"
+        className="display-1 text-light text-center pt-0"
         style={{ fontWeight: "bold" }}
       >
         Report Form
