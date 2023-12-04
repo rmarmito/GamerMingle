@@ -119,6 +119,17 @@ function Navbar() {
               Support
             </NavLink>
           </li>
+          {~isAuthenticated && (
+            <li className="nav-item">
+              <NavLink
+                to="/signup"
+                className="nav-link text-light"
+                activeClassName="active" // Add activeClassName
+              >
+                Sign Up
+              </NavLink>
+            </li>
+          )}
           {isAuthenticated && (
             <li className="nav-item">
               <NavLink
@@ -131,6 +142,7 @@ function Navbar() {
               </NavLink>
             </li>
           )}
+          
         </ul>
       </div>
     </div>

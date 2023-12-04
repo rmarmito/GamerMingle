@@ -1,0 +1,38 @@
+.join-btn {
+    display: block; /* Center the button */
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content; /* Adjust width as needed */
+  }
+
+button.join-btn {
+font-size: 20px;
+padding-inline: 30px;
+background-color: #3b3b58;
+border: 2px solid #3b3b58;
+border-radius: 30px;
+box-sizing: border-box;
+}
+
+button.join-btn:hover {
+background-image: linear-gradient(#592e83, #a96da3);
+border-color: #3b3b58;
+text-decoration: none;
+outline: none;
+}
+
+.join-btn-link {
+    display: block; /* Makes the element a block-level element */
+    text-align: center; /* Centers inline or inline-block children */
+    width: 100%; /* Takes the full width of its parent */
+  }
+  
+
+.join-btn-link, 
+.join-btn-link:hover, 
+.join-btn-link:active, 
+.join-btn-link:visited {
+  text-decoration: none;
+  color: inherit; /* Optional: Inherit the text color */
+  display: inline-block; /* Or 'block' depending on your layout needs */
+}
