@@ -119,7 +119,7 @@ function Navbar() {
               Support
             </NavLink>
           </li>
-          {~isAuthenticated && (
+          {!isAuthenticated && (
             <li className="nav-item">
               <NavLink
                 to="/signup"
@@ -142,7 +142,6 @@ function Navbar() {
               </NavLink>
             </li>
           )}
-          
         </ul>
       </div>
     </div>
