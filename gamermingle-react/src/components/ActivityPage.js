@@ -4,19 +4,23 @@ import PersonContainer from "./PersonContainer";
 
 function ActivityPage() {
   const [users, setUsers] = useState([]); // State to store user data
+  const [selectedUser, setSelectedUser] = useState(null); // state for tracking selected user
+
   useEffect(() => {
-    // Function to fetch user data
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/users/"); // Adjust URL as needed
+        const response = await axios.get("http://localhost:8000/api/users/");
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
       }
     };
-
     fetchUsers();
   }, []);
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+  };
 
   const containersStyles = {
     paddingTop: "100px",
@@ -93,6 +97,8 @@ function ActivityPage() {
                 key={user.id}
                 username={user.username}
                 imageUrl={user.profile_picture}
+                onClick={() => handleUserClick(user)} // Add an onClick event here
+                isSelected={selectedUser && user.id === selectedUser.id}
               ></PersonContainer>
             ))}
           </div>
@@ -101,16 +107,16 @@ function ActivityPage() {
       <div className="col-md-5" style={containersStyles}>
         <div className="chat-box shadow-lg" style={chatBoxStyles}>
           <div className="chat-box-area" style={chatContainerStyles}>
-            <div class="chat-history">
-              <p></p>
+            <div className="chat-history">
+              {selectedUser && <p>Chat with {selectedUser.username}</p>}
+              {/* You would populate this area with the selected user's chat history */}
             </div>
           </div>
-          <div class="chat-message clearfix pt-3">
-            <div class="input-group mb-0">
-              <div class="input-group-prepend"></div>
+          <div className="chat-message clearfix pt-3">
+            <div className="input-group mb-0">
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 placeholder="Send a message..."
               />
             </div>
@@ -120,25 +126,19 @@ function ActivityPage() {
       <div className="col-md-4" style={containersStyles}>
         <div className="profile-box shadow-lg" style={chatBoxStyles}>
           <div className="profile-box-media" style={profileMediaStyles}>
-            <p className="text-center"> -- PROFILE MEDIA GOES HERE -- </p>
+            {selectedUser && selectedUser.profile_picture ? (
+              <img
+                src={selectedUser.profile_picture}
+                alt={selectedUser.username}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }} // You may want to adjust styles accordingly
+              />
+            ) : (
+              <p className="text-center"> -- No profile media -- </p>
+            )}
           </div>
-          <p className="text-center fw-bold fs-3">PERSON NAME/ALIAS</p>
-          <div className="row">
-            <div className="col-md-3 text-dark fw-bold">
-              <p>
-                PROFILE DETAILS GO HERE --
-                <br />
-                discord, steam, etc
-              </p>
-            </div>
-            <div className="col-lg-9">
-              <p>
-                PROFILE DESCRIPTION GO HERE --
-                <br />
-                about yourself, etc
-              </p>
-            </div>
-          </div>
+          <p className="text-center fw-bold fs-3">
+            {selectedUser ? selectedUser.username : "Select a person"}
+          </p>
         </div>
       </div>
     </div>

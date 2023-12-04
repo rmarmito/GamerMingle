@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 
-function PersonContainer({ imageUrl, username, children }) {
+function PersonContainer({
+  imageUrl,
+  username,
+  onClick,
+  isSelected,
+  children,
+}) {
   const [hovered, setHovered] = useState(false);
   const personListStyles = {
     border: "2px solid #3b3b58",
@@ -10,11 +16,12 @@ function PersonContainer({ imageUrl, username, children }) {
     height: "20%",
     width: "100%",
     cursor: "pointer",
+    backgroundColor: isSelected ? "#7a5980" : "initial", // Change color if person is selected
   };
   const personListHoverStyle = {
     ...personListStyles,
     backgroundColor: hovered ? "#7a5980" : "initial", // Change color on hover
-    transform: hovered ? "scaleY(1.1)" : "initial", // Change scale on hover
+    transform: hovered ? "scaleY(1.1)" : "initial", // Change scale during hover as well
   };
 
   const imageStyles = {
@@ -28,6 +35,7 @@ function PersonContainer({ imageUrl, username, children }) {
   return (
     <div
       className="person-container"
+      onClick={onClick}
       style={personListHoverStyle}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
