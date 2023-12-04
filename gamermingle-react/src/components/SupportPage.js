@@ -1,5 +1,6 @@
 import "./styles/supportStyles.css";
 import { Link } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 function SupportPage() {
   const supportSplashContainer = {
@@ -7,10 +8,12 @@ function SupportPage() {
     justifyContent: "center",
     height: "100%",
   };
+  const { isAuthenticated } = useAuth();
+
   return (
     <div className="support-container">
       <div className="back-btn">
-        <Link to="/">
+        <Link to={isAuthenticated ? "/activity" : "/"}>
           <button className="btn support-back-btn btn-primary btn-lg">
             <strong>Back to GamerMingle</strong>
           </button>
