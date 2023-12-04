@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import "./styles/learnStyles.css"; 
+import TrendingGamesList from './TrendingGamesList';
 
 function LearnPage() {
   const boxStyles = {
@@ -75,6 +76,7 @@ function LearnPage() {
           </p>
         </div> */}
       </div>
+      <TrendingGamesList />
     </body>
   );
 }
