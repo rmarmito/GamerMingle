@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import "./styles/webStyles.css";
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext.js";
@@ -17,8 +17,8 @@ function LoginForm() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(async (e) => {
+    if (e) e.preventDefault();
     try {
       const response = await axios.post("http://localhost:8000/api/token/", {
         username: username,
@@ -42,7 +42,7 @@ function LoginForm() {
         console.log("Error", error.message);
       }
     }
-  };
+  }, [username, password, login, navigate]);
 
   const loginContainerStyles = {
     display: "flex",
@@ -62,6 +62,24 @@ function LoginForm() {
     color: "white",
     width: "500px",
   };
+
+  useEffect(() => {
+    // Function to handle key press
+    const handleKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault(); // Prevent the default action
+        handleSubmit();
+      }
+    };
+
+    // Add event listener for keypress
+    window.addEventListener('keypress', handleKeyPress);
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener('keypress', handleKeyPress);
+    };
+  }, [handleSubmit]);
 
   return (
     <body>
