@@ -18,9 +18,10 @@ function PersonContainer({ imageUrl, username, children }) {
   };
 
   const imageStyles = {
-    width: "100%",
-    height: "auto",
+    width: "100px", // Set a fixed width and height
+    height: "100px",
     borderRadius: "50%",
+    objectFit: "cover", // import image but not adjust aspect ratio
     margin: "20px",
   };
 
@@ -34,7 +35,10 @@ function PersonContainer({ imageUrl, username, children }) {
       <div className="row g-0">
         <div className="col-3">
           <img
-            src={imageUrl || "https://via.placeholder.com/50"}
+            src={
+              imageUrl ||
+              "https://avatars.dicebear.com/api/adventurer-neutral/mail%40ashallendesign.co.uk.svg"
+            }
             alt="Profile"
             className="img-fluid"
             style={imageStyles}

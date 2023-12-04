@@ -12,7 +12,7 @@ function SignupForm() {
     steam: "",
     riotid: "",
     about: "",
-    profilePicture: null,
+    profile_picture: null,
   });
 
   const [successMessage, setSuccessMessage] = useState("");
@@ -46,17 +46,29 @@ function SignupForm() {
           steam: "",
           riotid: "",
           about: "",
-          profilePicture: null,
+          profile_picture: null,
         });
       } else {
-        // Handle non-201 responses if needed
+        // non-201 responses
       }
     } catch (error) {
       console.error("Error creating account:", error);
-      setErrorMessage(
-        "Failed to create account. Please try again.",
-        error.response.data
-      );
+      if (error.response) {
+        const errors = error.response.data;
+        let errorMessages = [];
+        for (const [field, messages] of Object.entries(errors)) {
+          // For each field in the errors object, append the field name to its error message
+          messages.forEach((message) =>
+            errorMessages.push(`${field}: ${message}`)
+          );
+        }
+        // Join all error messages into a single string to display
+        setErrorMessage(errorMessages.join(" "));
+      } else if (error.request) {
+        setErrorMessage("No response received from the server.");
+      } else {
+        setErrorMessage("An error occurred while setting up the request.");
+      }
       setSuccessMessage("");
     }
   };
@@ -67,7 +79,7 @@ function SignupForm() {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, profilePicture: e.target.files[0] });
+    setFormData({ ...formData, profile_picture: e.target.files[0] });
   };
 
   const signupContainerStyles = {
@@ -206,7 +218,7 @@ function SignupForm() {
                   </div>
 
                   <div className="col-md-5">
-                    <Form.Group controlId="profilePicture">
+                    <Form.Group controlId="profile_picture">
                       <Form.Label>Profile Picture:</Form.Label>
                       <br />
                       <div className="d-flex justify-content-center border mb-3">

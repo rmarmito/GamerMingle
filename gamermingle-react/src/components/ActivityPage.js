@@ -1,7 +1,23 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios"; //axios for API requests
 import PersonContainer from "./PersonContainer";
 
 function ActivityPage() {
+  const [users, setUsers] = useState([]); // State to store user data
+  useEffect(() => {
+    // Function to fetch user data
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/api/users/"); // Adjust URL as needed
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   const containersStyles = {
     paddingTop: "100px",
     paddingBottom: "100px",
@@ -72,36 +88,13 @@ function ActivityPage() {
         {/* list of people to chat with */}
         <div className="persons-box shadow-lg" style={personsBoxStyles}>
           <div style={personsBoxInnerStyles}>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
-            <PersonContainer>
-              <p className="text-center fw-bold"></p>
-            </PersonContainer>
+            {users.map((user) => (
+              <PersonContainer
+                key={user.id}
+                username={user.username}
+                imageUrl={user.profile_picture}
+              ></PersonContainer>
+            ))}
           </div>
         </div>
       </div>
@@ -109,53 +102,7 @@ function ActivityPage() {
         <div className="chat-box shadow-lg" style={chatBoxStyles}>
           <div className="chat-box-area" style={chatContainerStyles}>
             <div class="chat-history">
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-                tempor pretium dapibus. Suspendisse varius, ex ac auctor
-                pharetra, mi purus ultrices leo, et tincidunt urna nunc at ex.
-                Etiam lacinia nunc id tortor tempus interdum. Integer ornare et
-                nunc quis pellentesque. In hac habitasse platea dictumst. Lorem
-                ipsum dolor sit amet, <br />
-                <br />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-                tempor pretium dapibus. Suspendisse varius, ex ac auctor
-                pharetra, mi purus ultrices leo, et tincidunt urna nunc at ex.
-                Etiam lacinia nunc id tortor tempus interdum. Integer ornare et
-                nunc quis pellentesque. In hac habitasse platea dictumst. Lorem
-                ipsum dolor sit amet,
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-                tempor pretium dapibus. Suspendisse varius, ex ac auctor
-                pharetra, mi purus ultrices leo, et tincidunt urna nunc at ex.
-                Etiam lacinia nunc id tortor tempus interdum. Integer ornare et
-                nunc quis pellentesque. In hac habitasse platea dictumst. Lorem
-                ipsum dolor sit amet,
-                <br />
-                <br />
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
-                tempor pretium dapibus. Suspendisse varius, ex ac auctor
-                pharetra, mi purus ultrices leo, et tincidunt urna nunc at ex.
-                Etiam lacinia nunc id tortor tempus interdum. Integer ornare et
-                nunc quis pellentesque. In hac habitasse platea dictumst. Lorem
-                ipsum dolor sit amet,Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Duis tempor pretium dapibus. Suspendisse
-                varius, ex ac auctor pharetra, mi purus ultrices leo, et
-                tincidunt urna nunc at ex. Etiam lacinia nunc id tortor tempus
-                interdum. Integer ornare et nunc quis pellentesque. In hac
-                habitasse platea dictumst. Lorem ipsum dolor sit amet,Lorem
-                ipsum dolor sit amet, consectetur adipiscing elit. Duis tempor
-                pretium dapibus. Suspendisse varius, ex ac auctor pharetra, mi
-                purus ultrices leo, et tincidunt urna nunc at ex. Etiam lacinia
-                nunc id tortor tempus interdum. Integer ornare et nunc quis
-                pellentesque. In hac habitasse platea dictumst. Lorem ipsum
-                dolor sit amet,Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Duis tempor pretium dapibus. Suspendisse
-                varius, ex ac auctor pharetra, mi purus ultrices leo, et
-                tincidunt urna nunc at ex. Etiam lacinia nunc id tortor tempus
-                interdum. Integer ornare et nunc quis pellentesque. In hac
-                habitasse platea dictumst. Lorem ipsum dolor sit amet,
-              </p>
+              <p></p>
             </div>
           </div>
           <div class="chat-message clearfix pt-3">
