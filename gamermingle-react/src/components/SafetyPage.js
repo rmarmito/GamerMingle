@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import "./styles/safetyStyles.css"; 
+
 function SafetyPage() {
   const boxStyles = {
     backgroundImage: "radial-gradient(#cf9893, #bc7c9c)",
@@ -37,6 +40,11 @@ function SafetyPage() {
   return (
     <body>
       <div className="safety-container" style={safetyContainerStyles}>
+      <Link to="/report">
+        <button className="btn report-btn btn-primary btn-lg">
+          <strong>Report Someone</strong>
+        </button>
+      </Link>
         <div className="container d-flex">
           <div
             className="box shadow-lg"

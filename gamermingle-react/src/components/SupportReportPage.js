@@ -54,7 +54,7 @@ function ReportPage() {
       <p className="text-center text-light">
         We take the privacy, safety, and comfort of our community very
         seriously. <br />
-        See our Conduct Policy by clicking here.
+        See our <a href="/safety">Conduct Policy</a> for more information.
       </p>
       <div style={reportContainerStyles}>
         <div className="shadow-lg" style={reportFormStyles}>
