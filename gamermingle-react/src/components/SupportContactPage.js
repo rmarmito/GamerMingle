@@ -110,7 +110,7 @@ function ContactPage() {
         className=" text-left text-light text-left"
         style={{ fontWeight: "bold", paddingLeft: "30px", marginBottom: "0px" }}
       >
-        We just need a few information.
+        We just need some information.
       </p>
 
       <div style={contactContainerStyles}>
