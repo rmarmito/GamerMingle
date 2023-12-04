@@ -16,10 +16,6 @@ function PersonContainer({
     height: "20%",
     width: "100%",
     cursor: "pointer",
-    backgroundColor: isSelected ? "#7a5980" : "initial", // Change color if person is selected
-  };
-  const personListHoverStyle = {
-    ...personListStyles,
     backgroundColor: hovered ? "#7a5980" : "initial", // Change color on hover
     transform: hovered ? "scaleY(1.1)" : "initial", // Change scale during hover as well
   };
@@ -36,7 +32,7 @@ function PersonContainer({
     <div
       className="person-container"
       onClick={onClick}
-      style={personListHoverStyle}
+      style={personListStyles}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >

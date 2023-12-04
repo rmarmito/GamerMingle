@@ -20,7 +20,7 @@ function ContactPage() {
     paddingInline: "25px",
     textAlign: "left",
     color: "white",
-    width: "1100px",
+    width: "75%",
   };
 
   const reportBoxStyles = {
@@ -31,7 +31,7 @@ function ContactPage() {
     paddingInline: "20px",
     marginTop: "100px",
     marginBottom: "100px",
-    marginLeft: "50px",
+    marginLeft: "2%",
     textAlign: "center",
     color: "white",
     width: "20%",
