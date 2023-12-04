@@ -2,8 +2,11 @@ import { Form } from "react-bootstrap";
 import "./styles/webStyles.css";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+
 
 function SignupForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -50,12 +53,15 @@ function SignupForm() {
           username: "",
           email: "",
           password: "",
+          confirmPassword: "",
           discord: "",
           steam: "",
           riotid: "",
           about: "",
           profile_picture: null,
         });
+        // Redirect to the login page
+        navigate('/login');
       } else {
         // non-201 responses
       }
@@ -79,7 +85,7 @@ function SignupForm() {
       }
       setSuccessMessage("");
     }
-  }, [formData]); 
+  }, [formData, navigate]); 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
