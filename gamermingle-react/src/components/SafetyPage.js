@@ -40,11 +40,7 @@ function SafetyPage() {
   return (
     <body>
       <div className="safety-container" style={safetyContainerStyles}>
-      <Link to="/report">
-        <button className="btn report-btn btn-primary btn-lg">
-          <strong>Report Someone</strong>
-        </button>
-      </Link>
+      
         <div className="container d-flex">
           <div
             className="box shadow-lg"
@@ -99,6 +95,11 @@ function SafetyPage() {
                 never ask for your password via email.
               </li>
             </ul>
+            <Link to="/report">
+              <button className="btn report-btn btn-primary btn-lg">
+                <strong>Report Someone</strong>
+              </button>
+            </Link>
           </div>
 
           <div
