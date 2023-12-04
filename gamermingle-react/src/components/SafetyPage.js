@@ -158,15 +158,7 @@ function SafetyPage() {
                 impersonate other individuals or create multiple accounts for
                 deceptive purposes.
               </li>
-              <li>
-                <strong style={{ ...strongHighlight }}>
-                  Reporting and Accountability
-                </strong>
-                <br />
-                Report any behavior that violates these guidelines. Users found
-                violating the Code of Conduct may face consequences, including
-                temporary suspension or permanent account deletion.
-              </li>
+
               <li>
                 <strong style={{ ...strongHighlight }}>
                   Age Appropriate Behavior
