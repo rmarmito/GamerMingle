@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import "./styles/webStyles.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 function SignupForm() {
@@ -8,6 +8,7 @@ function SignupForm() {
     username: "",
     email: "",
     password: "",
+    confirmPassword: "",
     discord: "",
     steam: "",
     riotid: "",
@@ -17,9 +18,16 @@ function SignupForm() {
 
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [imagePreview, setImagePreview] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Check if passwords match
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMessage("Passwords do not match.");
+      return;
+    }
     const url = "http://localhost:8000/api/create_user/";
 
     const formDataToSend = new FormData();
@@ -79,7 +87,11 @@ function SignupForm() {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, profile_picture: e.target.files[0] });
+    const file = e.target.files[0];
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+    }
+    setFormData({ ...formData, profile_picture: file });
   };
 
   const signupContainerStyles = {
@@ -98,7 +110,8 @@ function SignupForm() {
     paddingInline: "30px",
     textAlign: "left",
     color: "white",
-    width: "1000px",
+    height: "100%",
+    width: "60%",
     // transform: "scale(0.9)",
   };
 
@@ -106,6 +119,14 @@ function SignupForm() {
     fontWeight: "bold",
     //width: "100%",
   };
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   return (
     <body>
@@ -168,6 +189,19 @@ function SignupForm() {
                     value={formData.password}
                   />
                 </Form.Group>
+                <Form.Group controlId="confirmPassword">
+                  <Form.Label>
+                    Confirm Password<span className="required">*</span>:
+                  </Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="confirmPassword"
+                    placeholder="confirm password"
+                    required
+                    onChange={handleInputChange}
+                    value={formData.confirmPassword}
+                  />
+                </Form.Group>
                 <Form.Group controlId="discord">
                   <Form.Label>Discord:</Form.Label>
                   <Form.Control
@@ -208,7 +242,7 @@ function SignupForm() {
                       <Form.Control
                         as="textarea"
                         name="about"
-                        rows={15}
+                        rows={17}
                         placeholder="tell us about yourself..."
                         className="form-control-md pb-4"
                         onChange={handleInputChange}
@@ -224,8 +258,9 @@ function SignupForm() {
                       <div className="d-flex justify-content-center border mb-3">
                         <img
                           src={
+                            imagePreview ||
                             process.env.PUBLIC_URL +
-                            "/images/logo-gamermingle.png"
+                              "/images/logo-gamermingle.png"
                           }
                           alt="Profile Placeholder"
                           className="mr-2"

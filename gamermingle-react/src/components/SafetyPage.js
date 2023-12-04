@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import "./styles/safetyStyles.css"; 
+import { Link } from "react-router-dom";
+import "./styles/safetyStyles.css";
 
 function SafetyPage() {
   const boxStyles = {
@@ -23,7 +23,7 @@ function SafetyPage() {
 
   const topBoxStyles = {
     background: "white",
-    border: "2px solid black",
+    border: "2px solid #3b3b58",
     borderRadius: "10px",
     position: "absolute",
     padding: "10px",
@@ -40,7 +40,6 @@ function SafetyPage() {
   return (
     <body>
       <div className="safety-container" style={safetyContainerStyles}>
-      
         <div className="container d-flex">
           <div
             className="box shadow-lg"
@@ -100,6 +99,8 @@ function SafetyPage() {
                 <strong>Report Someone</strong>
               </button>
             </Link>
+
+            <br />
           </div>
 
           <div
@@ -117,8 +118,10 @@ function SafetyPage() {
                   Respect for All Members
                 </strong>
                 <br />
-                Treat all members with respect, regardless of their skill level, game preferences, age, gender, race, ethnicity, religion, or any other characteristic.
-                Abusive language, harassment, bullying, and discrimination are strictly prohibited.
+                Treat all members with respect, regardless of their skill level,
+                game preferences, age, gender, race, ethnicity, religion, or any
+                other characteristic. Abusive language, harassment, bullying,
+                and discrimination are strictly prohibited.
               </li>
               <li>
                 <strong style={{ ...strongHighlight }}>
@@ -126,47 +129,52 @@ function SafetyPage() {
                 </strong>
                 <br />
                 Encourage a supportive atmosphere where all gamers feel welcome.
-                Constructive feedback is appreciated; derogatory remarks are not.
+                Constructive feedback is appreciated; derogatory remarks are
+                not.
               </li>
               <li>
                 <strong style={{ ...strongHighlight }}>
                   No Spam or Commercial Activity
                 </strong>
                 <br />
-                Refrain from spamming or promoting commercial interests, such as selling accounts or in-game items.
-                The platform is for making connections, not for commercial transactions.
+                Refrain from spamming or promoting commercial interests, such as
+                selling accounts or in-game items. The platform is for making
+                connections, not for commercial transactions.
               </li>
               <li>
-                <strong style={{ ...strongHighlight }}> 
+                <strong style={{ ...strongHighlight }}>
                   Privacy and Safety
                 </strong>
                 <br />
-                Do not share personal information of others without consent.
-                Be cautious about sharing your own personal information.
+                Do not share personal information of others without consent. Be
+                cautious about sharing your own personal information.
               </li>
               <li>
                 <strong style={{ ...strongHighlight }}>
                   Honesty and Integrity
                 </strong>
                 <br />
-                Be honest in your interactions and intentions.
-                Do not impersonate other individuals or create multiple accounts for deceptive purposes.
+                Be honest in your interactions and intentions. Do not
+                impersonate other individuals or create multiple accounts for
+                deceptive purposes.
               </li>
               <li>
                 <strong style={{ ...strongHighlight }}>
                   Reporting and Accountability
                 </strong>
                 <br />
-                Report any behavior that violates these guidelines.
-                Users found violating the Code of Conduct may face consequences, including temporary suspension or permanent account deletion.
+                Report any behavior that violates these guidelines. Users found
+                violating the Code of Conduct may face consequences, including
+                temporary suspension or permanent account deletion.
               </li>
               <li>
                 <strong style={{ ...strongHighlight }}>
                   Age Appropriate Behavior
                 </strong>
                 <br />
-                Adhere to age ratings of games when forming groups.
-                Be mindful of the presence of younger gamers in terms of language and content.
+                Adhere to age ratings of games when forming groups. Be mindful
+                of the presence of younger gamers in terms of language and
+                content.
               </li>
             </ol>
           </div>
