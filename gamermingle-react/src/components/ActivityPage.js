@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios"; //axios for API requests
+import axios from "axios";
 import PersonContainer from "./PersonContainer";
 
 function ActivityPage() {
-  const [users, setUsers] = useState([]); // State to store user data
-  const [selectedUser, setSelectedUser] = useState(null); // state for tracking selected user
+  const [users, setUsers] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [chatHistory, setChatHistory] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -15,11 +18,60 @@ function ActivityPage() {
         console.error("Error fetching users:", error);
       }
     };
+    const getCurrentUser = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/current_user/"
+        );
+        setCurrentUser(response.data);
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+      }
+    };
     fetchUsers();
+    getCurrentUser();
   }, []);
 
-  const handleUserClick = (user) => {
-    setSelectedUser(user);
+  const handleMessageChange = (event) => {
+    setCurrentMessage(event.target.value);
+  };
+
+  const handleUserClick = async (user) => {
+    try {
+      setSelectedUser(user);
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+      setSelectedUser(null);
+    }
+  };
+
+  const sendMessage = async () => {
+    if (currentMessage.trim() !== "" && selectedUser && currentUser) {
+      try {
+        await axios.post(`http://localhost:8000/api/messages/`, {
+          sender: currentUser.id,
+          receiver: selectedUser.id,
+          message: currentMessage,
+        });
+        setCurrentMessage("");
+        fetchChatHistory(selectedUser.id);
+      } catch (error) {
+        console.error("Error sending message:", error);
+      }
+    } else {
+      console.error("Message is empty or user not selected");
+    }
+  };
+
+  const fetchChatHistory = async (userId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/api/messages/${userId}`
+      );
+      setChatHistory(response.data);
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+    }
   };
 
   const containersStyles = {
@@ -108,8 +160,9 @@ function ActivityPage() {
         <div className="chat-box shadow-lg" style={chatBoxStyles}>
           <div className="chat-box-area" style={chatContainerStyles}>
             <div className="chat-history">
-              {selectedUser && <p>Chat with {selectedUser.username}</p>}
-              {/* You would populate this area with the selected user's chat history */}
+              {chatHistory.map((message, index) => (
+                <p key={index}>{message.content} </p>
+              ))}
             </div>
           </div>
           <div className="chat-message clearfix pt-3">
@@ -118,27 +171,75 @@ function ActivityPage() {
                 type="text"
                 className="form-control"
                 placeholder="Send a message..."
+                value={currentMessage}
+                onChange={handleMessageChange}
               />
+              <button className="btn btn-primary" onClick={sendMessage}>
+                Send
+              </button>
             </div>
           </div>
         </div>
       </div>
       <div className="col-md-4" style={containersStyles}>
         <div className="profile-box shadow-lg" style={chatBoxStyles}>
+          {/* Profile Picture */}
           <div className="profile-box-media" style={profileMediaStyles}>
             {selectedUser && selectedUser.profile_picture ? (
               <img
-                src={selectedUser.profile_picture}
-                alt={selectedUser.username}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }} // You may want to adjust styles accordingly
+                src={selectedUser.profile_picture} // Use the same property as in PersonContainer
+                alt={`Profile of ${selectedUser.username}`}
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             ) : (
               <p className="text-center"> -- No profile media -- </p>
             )}
           </div>
-          <p className="text-center fw-bold fs-3">
+
+          {/* Username */}
+          <p
+            className="text-center fw-bold display-5"
+            style={{ color: "#3b3b58" }}
+          >
             {selectedUser ? selectedUser.username : "Select a person"}
           </p>
+          <div className="row">
+            {/* Left Column for Discord, Steam, and Riot ID */}
+            <div className="col-md-4">
+              <p>
+                <p
+                  className="fw-bold fs-3 text-left"
+                  style={{ color: "#FFF4E9" }}
+                >
+                  Socials{" "}
+                </p>
+                <strong>Discord: </strong>
+                <br /> {selectedUser ? selectedUser.discord : "N/A"}
+              </p>
+              <p>
+                <strong>Steam: </strong>
+                <br />
+                {selectedUser ? selectedUser.steam : "N/A"}
+              </p>
+              <p>
+                <strong>Riot ID: </strong>
+                <br />
+                {selectedUser ? selectedUser.riotid : "N/A"}
+              </p>
+            </div>
+            {/* Right Column for About  */}
+            <div className="col-lg-8">
+              <p>
+                <p
+                  className="fw-bold fs-3 text-left"
+                  style={{ color: "#FFF4E9" }}
+                >
+                  About{" "}
+                </p>
+                {selectedUser ? selectedUser.about : "No details provided."}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

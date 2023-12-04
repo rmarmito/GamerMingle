@@ -62,7 +62,7 @@ function SignupForm() {
             errorMessages.push(`${field}: ${message}`)
           );
         }
-        // Join all error messages into a single string to display
+        // Join all error messages into a single string so we can send display
         setErrorMessage(errorMessages.join(" "));
       } else if (error.request) {
         setErrorMessage("No response received from the server.");
@@ -160,7 +160,7 @@ function SignupForm() {
                     Password<span className="required">*</span>:
                   </Form.Label>
                   <Form.Control
-                    type="text"
+                    type="password"
                     name="password"
                     placeholder="password"
                     required
