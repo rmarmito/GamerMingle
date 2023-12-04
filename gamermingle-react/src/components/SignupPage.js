@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 import "./styles/webStyles.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 function SignupForm() {
@@ -20,8 +20,8 @@ function SignupForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = useCallback(async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
 
     // Check if passwords match
     if (formData.password !== formData.confirmPassword) {
@@ -79,7 +79,7 @@ function SignupForm() {
       }
       setSuccessMessage("");
     }
-  };
+  }, [formData]); 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -121,12 +121,25 @@ function SignupForm() {
   };
 
   useEffect(() => {
+    const handleKeyPress = (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSubmit(e);
+      }
+    };
+  
+    // Add event listener
+    window.addEventListener('keypress', handleKeyPress);
+  
+    // Cleanup function
     return () => {
+      window.removeEventListener('keypress', handleKeyPress);
       if (imagePreview) {
         URL.revokeObjectURL(imagePreview);
       }
     };
-  }, [imagePreview]);
+  }, [imagePreview, handleSubmit]); // Include handleSubmit here
+  
 
   return (
     <body>
