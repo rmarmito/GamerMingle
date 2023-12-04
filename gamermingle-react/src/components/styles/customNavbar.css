@@ -1,0 +1,6 @@
+.nav li:hover {
+  background-color: #7a5980;
+}
+.navbar .nav .active {
+  background-color: #7a5980 !important;
+}
