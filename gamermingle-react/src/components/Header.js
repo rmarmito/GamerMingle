@@ -69,7 +69,7 @@ function Navbar() {
           style={{
             fontWeight: "bold",
             textDecoration: "none",
-            paddingRight: "150px",
+            paddingRight: "0px",
             color: "white",
           }}
         >
