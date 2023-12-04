@@ -22,7 +22,7 @@ function SafetyPage() {
   };
 
   const topBoxStyles = {
-    background: "white",
+    background: "#3b3b58",
     border: "2px solid #3b3b58",
     borderRadius: "10px",
     position: "absolute",
@@ -49,7 +49,7 @@ function SafetyPage() {
               className="top-box"
               style={{ ...topBoxStyles, textAlign: "center" }}
             >
-              <p className="text-dark fw-bold fs-5 px-3 mb-0">
+              <p className="text-light fw-bold fs-5 px-3 mb-0">
                 Safety @ GamerMingle
               </p>
             </div>
@@ -108,7 +108,7 @@ function SafetyPage() {
             style={{ ...boxStyles, marginLeft: "30px" }}
           >
             <div className="top-box" style={{ ...topBoxStyles }}>
-              <p className="text-dark fw-bold fs-5 px-3 mb-0">
+              <p className="text-light fw-bold fs-5 px-3 mb-0">
                 Code of Conduct
               </p>
             </div>
