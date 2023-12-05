@@ -8,15 +8,15 @@ function ActivityPage() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [currentMessage, setCurrentMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
-  const authToken = localStorage.getItem("authToken");
+  const authToken = localStorage.getItem("token");
 
   const fetchChatHistory = useCallback(
-    async (userId) => {
-      if (!userId) return;
+    async (receiverId) => {
+      if (!receiverId) return;
 
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/messages/${userId}/`,
+          `http://localhost:8000/api/messages/?receiver=${receiverId}`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -35,39 +35,40 @@ function ActivityPage() {
     setCurrentMessage(event.target.value);
   };
 
-  const handleUserClick = async (user) => {
-    try {
-      setSelectedUser(user);
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-      setSelectedUser(null);
-    }
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
   };
 
   const sendMessage = async () => {
-    if (currentMessage.trim() === "" || !selectedUser || !currentUser) {
-      console.error("Message is empty or user not selected");
+    if (!selectedUser || !selectedUser.id) {
+      console.error("No user selected or user ID is undefined");
+      return;
+    }
+    if (!currentMessage.trim()) {
+      console.error("Message is empty");
       return;
     }
 
+    const body = {
+      message: currentMessage,
+      receiver: selectedUser.id, // Here we're using the ID from the selectedUser directly
+      sender: currentUser.id,
+    };
+
     try {
-      const response = await axios.post(
-        `http://localhost:8000/api/messages/`,
-        {
-          sender: currentUser.id,
-          receiver: selectedUser.id,
-          message: currentMessage,
+      const postUrl = `http://localhost:8000/api/messages/${selectedUser.id}/`;
+      const response = await axios.post(postUrl, body, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-          },
-        }
-      );
+      });
 
       if (response.status === 201) {
+        setChatHistory((prevChatHistory) => [
+          ...prevChatHistory,
+          response.data,
+        ]);
         setCurrentMessage("");
-        fetchChatHistory(selectedUser.id);
       } else {
         console.error("Failed to send message:", response);
       }
@@ -75,6 +76,29 @@ function ActivityPage() {
       console.error("Error sending message:", error);
     }
   };
+
+  // useEffect hook to fetch chat history
+  useEffect(() => {
+    let intervalId;
+
+    // A helper function to be used for fetching the chat history
+    const fetchHistory = () => {
+      if (selectedUser && selectedUser.id) {
+        fetchChatHistory(selectedUser.id).catch(console.error);
+      }
+    };
+
+    // Immediately fetch when the selected user changes
+    fetchHistory();
+
+    // Then, set up the interval for refreshing the chat history
+    intervalId = setInterval(fetchHistory, 3000); // Refresh every 3 seconds
+
+    // Clear the interval when the component unmounts or when selectedUser changes
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [selectedUser, fetchChatHistory]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -85,19 +109,31 @@ function ActivityPage() {
         console.error("Error fetching users:", error);
       }
     };
+
     const getCurrentUser = async () => {
+      if (!authToken) {
+        console.error("No auth token available");
+        // Handle lack of authToken appropriately
+        return;
+      }
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/current_user/"
+          "http://localhost:8000/api/current_user/",
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
         );
         setCurrentUser(response.data);
       } catch (error) {
         console.error("Error fetching current user:", error);
       }
     };
+
     fetchUsers();
     getCurrentUser();
-  }, []);
+  }, [authToken]);
 
   useEffect(() => {
     // Set up an interval for fetching chat history for the selected user
@@ -126,7 +162,7 @@ function ActivityPage() {
   };
 
   const personsContainerStyles = {
-    paddingTop: "100px",
+    paddingTop: "90px",
     paddingBottom: "75px",
     justifyContent: "center",
     paddingLeft: "0px",
@@ -222,7 +258,10 @@ function ActivityPage() {
                 value={currentMessage}
                 onChange={handleMessageChange}
               />
-              <button className="btn btn-primary" onClick={sendMessage}>
+              <button
+                className="btn btn-primary"
+                onClick={() => sendMessage(selectedUser.id)}
+              >
                 Send
               </button>
             </div>
