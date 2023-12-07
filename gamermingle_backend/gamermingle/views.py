@@ -3,14 +3,16 @@ from rest_framework.decorators import api_view, parser_classes, permission_class
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+from rest_framework.views import APIView
+
 
 from .serializers import UserSerializer, MessageSerializer
-from .models import CustomUser, Message, models
+from .models import CustomUser, Message
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 
-
-@api_view(['POST']) #repsond to hTTP POST REQUEST
-@parser_classes([MultiPartParser, FormParser]) #handle multipar forms/data input
+@api_view(['POST'])
+@parser_classes([MultiPartParser, FormParser])
 def create_user(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
@@ -19,26 +21,24 @@ def create_user(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserListView(ListAPIView):
-    queryset = CustomUser.objects.all()  
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
-
-@api_view(['GET', 'POST'])
+@api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def message_list_and_create(request, receiver_id):
-    if request.method == 'GET':
-        messages = Message.objects.filter(
-            models.Q(sender=request.user, receiver__id=receiver_id) |
-            models.Q(sender__id=receiver_id, receiver=request.user)
-        ).order_by('-timestamp')
+def current_user(request):
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
+class MessageView(APIView):
+    def get(self, request, receiver_id):
+        messages = Message.objects.filter(receiver_id=receiver_id)
         serializer = MessageSerializer(messages, many=True)
         return Response(serializer.data)
-    elif request.method == 'POST':
+
+    def post(self, request, receiver_id):
         serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(sender=request.user)
+            serializer.save()
             return Response(serializer.data, status=201)
-        else:
-            return Response(serializer.errors, status=400)
-
-
+        return Response(serializer.errors, status=400)
