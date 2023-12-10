@@ -1,7 +1,22 @@
+import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
+import axios from "axios";
+import { useAuth } from './AuthContext'; 
 import "./styles/webStyles.css";
 
 function ProfileEditPage() {
+  const [isFormInitialized, setIsFormInitialized] = useState(false);
+  const { token } = useAuth();
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirm: '',
+    discord: '',
+    steam: '',
+    riotid: '',
+    about: '',
+  });
   const profileContainerStyles = {
     display: "flex",
     justifyContent: "right",
@@ -32,67 +47,133 @@ function ProfileEditPage() {
     height: "100%",
   };
 
+  useEffect(() => {
+    const getCurrentUserLoggedIn = async () => {
+      if (!token || isFormInitialized) return; // Check if form is already initialized
+
+      try {
+        const response = await axios.get('http://localhost:8000/api/current_user_logged_in/', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        setFormData({
+          username: response.data.username,
+          email: response.data.email,
+          discord: response.data.discord,
+          steam: response.data.steam,
+          riotid: response.data.riotid,
+          about: response.data.about,
+        });
+        setIsFormInitialized(true); // Set flag to true after initializing form
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+      }
+    };
+
+    getCurrentUserLoggedIn();
+  }, [token, isFormInitialized]); 
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    console.log('Field changed:', name, 'Value:', value);
+    setFormData(prevFormData => ({
+      ...prevFormData,
+      [name]: value
+    }));
+  };
+
+  // Function to handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put('http://localhost:8000/api/current_user_logged_in/', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      console.log('Profile updated:', response.data);
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
+  };
+
   return (
     <div className="container">
       <div className="row align-items-center">
         <div className="col" style={profileContainerStyles}>
           <div className="profile-info-container" style={boxStyles}>
-            <div className="align-items-center justify-contents-center">
-              <Form.Group controlId="username">
-                <Form.Label>
-                  Username<span className="required">*</span>:
-                </Form.Label>
-                <Form.Control type="username" placeholder="username" required />
-              </Form.Group>
-              <Form.Group controlId="email">
-                <Form.Label>
-                  Email<span className="required">*</span>:
-                </Form.Label>
-                <Form.Control type="email" placeholder="email" required />
-              </Form.Group>
-              <Form.Group controlId="password">
-                <Form.Label>
-                  Password<span className="required">*</span>:
-                </Form.Label>
-                <Form.Control type="password" placeholder="Password" required />
-              </Form.Group>
-              <Form.Group controlId="confirm">
-                <Form.Label>
-                  Confirm Password<span className="required">*</span>:
-                </Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm Password"
-                  required
-                />
-              </Form.Group>
-              <Form.Group controlId="discord">
-                <Form.Label>Discord:</Form.Label>
-                <Form.Control type="text" placeholder="Discord username" />
-              </Form.Group>
-              <Form.Group controlId="steam">
-                <Form.Label>Steam:</Form.Label>
-                <Form.Control type="text" placeholder="Steam username" />
-              </Form.Group>
-              <Form.Group controlId="riotid">
-                <Form.Label>Riot ID:</Form.Label>
-                <Form.Control type="text" placeholder="Riot ID" />
-              </Form.Group>
-              <Form.Group controlId="about">
-                <Form.Label>About You:</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={5}
-                  placeholder="tell us about yourself..."
-                  className="form-control-sm"
-                />
-              </Form.Group>
-              <div className="pt-3 text-center">
-                <button className="btn signup-btn btn-primary m-0 shadow">
-                  <strong>Update Profile</strong>
-                </button>
+            <Form onSubmit={handleSubmit}>
+              <div className="align-items-center justify-contents-center">
+                
+                {/* Form group for username */}
+                <Form.Group controlId="username">
+                  <Form.Label>
+                    Username:
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    placeholder="username"
+                    value={formData.username}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+                {/* Form group for email */}
+                <Form.Group controlId="email">
+                  <Form.Label>
+                  Email:
+                  </Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="email"
+                    placeholder="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+                {/* Form group for discord */}
+                <Form.Group controlId="discord">
+                  <Form.Label>Discord:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="discord"
+                    placeholder="discord"
+                    value={formData.discord}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+                {/* Form group for steam */}
+                <Form.Group controlId="steam">
+                  <Form.Label>Steam:</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="steam"
+                    placeholder="steam"
+                    value={formData.steam}
+                    onChange={handleInputChange}
+                  />
+                </Form.Group>
+                {/* Form group for riotid */}
+                <Form.Group controlId="riotid">
+                  <Form.Label>Riot ID:</Form.Label>        
+                  <Form.Control
+                      type="text"
+                      name="riotid"
+                      placeholder="riotid"
+                      value={formData.riotid}
+                      onChange={handleInputChange}
+                    />
+                </Form.Group>
+                <div className="pt-3 text-center">
+                  <button type="submit" className="btn signup-btn btn-primary m-0 shadow">
+                    <strong>Update Profile</strong>
+                  </button>
+                </div>
               </div>
-            </div>
+            </Form>
           </div>
         </div>
         <div className="col" style={profileContainerStyles}>
