@@ -1,5 +1,9 @@
 from rest_framework import serializers
+
+from .models import CustomUser
+from django.contrib.auth.models import User
 from .models import CustomUser, Message
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,6 +27,25 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+class UserUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'discord', 'steam', 'riotid', 'about', 'profile_picture', 'password']
+        extra_kwargs = {
+            'password': {'write_only': True, 'required': False},
+        }
+
+    def update(self, instance, validated_data):
+        if 'password' in validated_data:
+            password = validated_data.pop('password')
+            instance.set_password(password)
+
+        # Update other fields
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+      
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message

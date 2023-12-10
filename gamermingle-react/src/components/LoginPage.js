@@ -28,7 +28,7 @@ function LoginForm() {
       console.log(response.data);
       localStorage.setItem("token", response.data.access);
 
-      login();
+      login(response.data.access);
       navigate("/activity");
     } catch (error) {
       if (error.response) {
