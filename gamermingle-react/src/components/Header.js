@@ -1,6 +1,6 @@
 import "./styles/customNavbar.css";
 import React from "react";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthContext"; // Import useAuth
 
 function Navbar() {
@@ -27,9 +27,9 @@ function Navbar() {
       className="navbar navbar-expand-md navbar-light fixed-top"
       style={headerStyles}
     >
-      <Link
-        to="/"
-        className="navbar-brand text-light d-flex align-items-center"
+      <NavLink
+        to={isAuthenticated ? "/activity" : "/"}
+        className={`nav-link text-light d-flex ${isHomeActive ? "active" : ""}`}
         style={{
           fontWeight: "bold",
           fontSize: "36px",
@@ -48,7 +48,7 @@ function Navbar() {
           className="img-fluid mr-2"
         />
         GamerMingle
-      </Link>
+      </NavLink>
       <button
         className="navbar-toggler"
         type="button"

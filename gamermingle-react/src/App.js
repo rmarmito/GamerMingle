@@ -20,6 +20,7 @@ import ProfileEditPage from "./components/ProfileEditPage";
 import ReportPage from "./components/SupportReportPage";
 import ContactPage from "./components/SupportContactPage";
 import FeedbackPage from "./components/SupportFeedbackPage";
+import NotFoundPage from "./components/NotFoundPage";
 
 function App() {
   return (
@@ -123,6 +124,7 @@ function App() {
                 </AuthRoute>
               }
             />
+            <Route path="*" element={<NotFoundPage />} />{" "}
           </Routes>
         </BrowserRouter>
       </div>

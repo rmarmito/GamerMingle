@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import PersonContainer from "./PersonContainer";
 
@@ -8,6 +8,97 @@ function ActivityPage() {
   const [selectedUser, setSelectedUser] = useState(null);
   const [currentMessage, setCurrentMessage] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
+  const authToken = localStorage.getItem("token");
+
+  const fetchChatHistory = useCallback(
+    async (receiverId) => {
+      if (!receiverId) return;
+
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/api/messages/?receiver=${receiverId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
+        );
+        setChatHistory(response.data);
+      } catch (error) {
+        console.error("Error fetching chat history:", error);
+      }
+    },
+    [authToken]
+  );
+
+  const handleMessageChange = (event) => {
+    setCurrentMessage(event.target.value);
+  };
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user);
+  };
+
+  const sendMessage = async () => {
+    if (!selectedUser || !selectedUser.id) {
+      console.error("No user selected or user ID is undefined");
+      return;
+    }
+    if (!currentMessage.trim()) {
+      console.error("Message is empty");
+      return;
+    }
+
+    const body = {
+      message: currentMessage,
+      receiver: selectedUser.id, // Here we're using the ID from the selectedUser directly
+      sender: currentUser.id,
+    };
+
+    try {
+      const postUrl = `http://localhost:8000/api/messages/${selectedUser.id}/`;
+      const response = await axios.post(postUrl, body, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+
+      if (response.status === 201) {
+        setChatHistory((prevChatHistory) => [
+          ...prevChatHistory,
+          response.data,
+        ]);
+        setCurrentMessage("");
+      } else {
+        console.error("Failed to send message:", response);
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
+  // useEffect hook to fetch chat history
+  useEffect(() => {
+    let intervalId;
+
+    // A helper function to be used for fetching the chat history
+    const fetchHistory = () => {
+      if (selectedUser && selectedUser.id) {
+        fetchChatHistory(selectedUser.id).catch(console.error);
+      }
+    };
+
+    // Immediately fetch when the selected user changes
+    fetchHistory();
+
+    // Then, set up the interval for refreshing the chat history
+    intervalId = setInterval(fetchHistory, 3000); // Refresh every 3 seconds
+
+    // Clear the interval when the component unmounts or when selectedUser changes
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [selectedUser, fetchChatHistory]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -18,61 +109,49 @@ function ActivityPage() {
         console.error("Error fetching users:", error);
       }
     };
+
     const getCurrentUser = async () => {
+      if (!authToken) {
+        console.error("No auth token available");
+        // Handle lack of authToken appropriately
+        return;
+      }
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/current_user/"
+          "http://localhost:8000/api/current_user/",
+          {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          }
         );
         setCurrentUser(response.data);
       } catch (error) {
         console.error("Error fetching current user:", error);
       }
     };
+
     fetchUsers();
     getCurrentUser();
-  }, []);
+  }, [authToken]);
 
-  const handleMessageChange = (event) => {
-    setCurrentMessage(event.target.value);
-  };
-
-  const handleUserClick = async (user) => {
-    try {
-      setSelectedUser(user);
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-      setSelectedUser(null);
-    }
-  };
-
-  const sendMessage = async () => {
-    if (currentMessage.trim() !== "" && selectedUser && currentUser) {
-      try {
-        await axios.post(`http://localhost:8000/api/messages/`, {
-          sender: currentUser.id,
-          receiver: selectedUser.id,
-          message: currentMessage,
-        });
-        setCurrentMessage("");
+  useEffect(() => {
+    // Set up an interval for fetching chat history for the selected user
+    let intervalId;
+    if (selectedUser && selectedUser.id) {
+      fetchChatHistory(selectedUser.id);
+      intervalId = setInterval(() => {
         fetchChatHistory(selectedUser.id);
-      } catch (error) {
-        console.error("Error sending message:", error);
-      }
-    } else {
-      console.error("Message is empty or user not selected");
+      }, 3000); // Refresh every 3 seconds
     }
-  };
 
-  const fetchChatHistory = async (userId) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/api/messages/${userId}`
-      );
-      setChatHistory(response.data);
-    } catch (error) {
-      console.error("Error fetching chat history:", error);
-    }
-  };
+    // Clear the interval when the component unmounts or when selectedUser changes
+    return () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+    };
+  }, [selectedUser, fetchChatHistory]);
 
   const containersStyles = {
     paddingTop: "100px",
@@ -83,7 +162,7 @@ function ActivityPage() {
   };
 
   const personsContainerStyles = {
-    paddingTop: "100px",
+    paddingTop: "90px",
     paddingBottom: "75px",
     justifyContent: "center",
     paddingLeft: "0px",
@@ -149,7 +228,7 @@ function ActivityPage() {
                 key={user.id}
                 username={user.username}
                 imageUrl={user.profile_picture}
-                onClick={() => handleUserClick(user)} // Add an onClick event here
+                onClick={() => handleUserClick(user)}
                 isSelected={selectedUser && user.id === selectedUser.id}
               ></PersonContainer>
             ))}
@@ -159,9 +238,14 @@ function ActivityPage() {
       <div className="col-md-5" style={containersStyles}>
         <div className="chat-box shadow-lg" style={chatBoxStyles}>
           <div className="chat-box-area" style={chatContainerStyles}>
+            {selectedUser && (
+              <div className="chat-header text-warning">
+                Start chatting with {selectedUser.username}
+              </div>
+            )}
             <div className="chat-history">
               {chatHistory.map((message, index) => (
-                <p key={index}>{message.content} </p>
+                <p key={index}>{message.content}</p>
               ))}
             </div>
           </div>
@@ -174,7 +258,10 @@ function ActivityPage() {
                 value={currentMessage}
                 onChange={handleMessageChange}
               />
-              <button className="btn btn-primary" onClick={sendMessage}>
+              <button
+                className="btn btn-primary"
+                onClick={() => sendMessage(selectedUser.id)}
+              >
                 Send
               </button>
             </div>

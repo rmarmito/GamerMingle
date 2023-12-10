@@ -1,19 +1,23 @@
 from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.decorators import api_view, parser_classes
+from rest_framework.decorators import api_view, parser_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.generics import ListAPIView
+
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from django.contrib.auth.models import User
 from .serializers import UserSerializer, UserUpdateSerializer
 
-from .serializers import UserSerializer
-from .models import CustomUser
 
 
-@api_view(['POST']) #repsond to hTTP POST REQUEST
-@parser_classes([MultiPartParser, FormParser]) #handle multipar forms/data input
+from .serializers import UserSerializer, MessageSerializer
+from .models import CustomUser, Message
+from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser, FormParser])
 def create_user(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
@@ -22,8 +26,9 @@ def create_user(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UserListView(ListAPIView):
-    queryset = CustomUser.objects.all()  # Use CustomUser instead of User
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
+
 
 class CurrentUserView(APIView):
     permission_classes = [IsAuthenticated]
@@ -62,5 +67,21 @@ def update_user(request, user_id):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def current_user(request):
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
 
+class MessageView(APIView):
+    def get(self, request, receiver_id):
+        messages = Message.objects.filter(receiver_id=receiver_id)
+        serializer = MessageSerializer(messages, many=True)
+        return Response(serializer.data)
 
+    def post(self, request, receiver_id):
+        serializer = MessageSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
