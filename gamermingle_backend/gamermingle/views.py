@@ -29,7 +29,6 @@ class UserListView(ListAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
-
 class CurrentUserView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -37,14 +36,13 @@ class CurrentUserView(APIView):
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
 
-    def put(self, request):  # Add this method to handle PUT requests
+    def put(self, request):  
         serializer = UserUpdateSerializer(request.user, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    # Optionally, you can also add a patch method if you want to support partial updates
     def patch(self, request):
         serializer = UserUpdateSerializer(request.user, data=request.data, partial=True)
         if serializer.is_valid():
