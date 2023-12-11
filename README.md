@@ -6,7 +6,7 @@ GamerMingle is a simple website designed to connect people alike to create frien
 
 These instructions will get your copy of the project up and running on your local machine for development and testing purposes.
 
-##Prerequisites and dependencies
+## Prerequisites and dependencies
 What things you need to install the software and how to install them:
 
 Python (version 3.x)
@@ -17,7 +17,7 @@ Django
 Django-cors-headers
 Axios
 
-##How to Run
+## How to Run
 
 Open two terminals at the project's directory
 
