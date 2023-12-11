@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./styles/supportStyles.css"; // Make sure this CSS file has the updated styles you provided
+import "./styles/supportStyles.css";
 import { Form } from "react-bootstrap";
 
 function ReportPage() {

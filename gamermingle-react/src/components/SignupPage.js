@@ -2,8 +2,7 @@ import { Form } from "react-bootstrap";
 import "./styles/webStyles.css";
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -23,69 +22,71 @@ function SignupForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
 
-  const handleSubmit = useCallback(async (e) => {
-    if (e && e.preventDefault) e.preventDefault();
+  const handleSubmit = useCallback(
+    async (e) => {
+      if (e && e.preventDefault) e.preventDefault();
 
-    // Check if passwords match
-    if (formData.password !== formData.confirmPassword) {
-      setErrorMessage("Passwords do not match.");
-      return;
-    }
-    const url = "http://localhost:8000/api/create_user/";
+      // Check if passwords match
+      if (formData.password !== formData.confirmPassword) {
+        setErrorMessage("Passwords do not match.");
+        return;
+      }
+      const url = "http://localhost:8000/api/create_user/";
 
-    const formDataToSend = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataToSend.append(key, value);
-    });
-
-    try {
-      const response = await axios.post(url, formDataToSend, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const formDataToSend = new FormData();
+      Object.entries(formData).forEach(([key, value]) => {
+        formDataToSend.append(key, value);
       });
 
-      if (response.status === 201) {
-        console.log(response.data);
-        setSuccessMessage("Account created successfully!");
-        setErrorMessage("");
-        setFormData({
-          username: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          discord: "",
-          steam: "",
-          riotid: "",
-          about: "",
-          profile_picture: null,
+      try {
+        const response = await axios.post(url, formDataToSend, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         });
-        // Redirect to the login page
-        navigate('/login');
-      } else {
-        // non-201 responses
-      }
-    } catch (error) {
-      console.error("Error creating account:", error);
-      if (error.response) {
-        const errors = error.response.data;
-        let errorMessages = [];
-        for (const [field, messages] of Object.entries(errors)) {
-          // For each field in the errors object, append the field name to its error message
-          messages.forEach((message) =>
-            errorMessages.push(`${field}: ${message}`)
-          );
+
+        if (response.status === 201) {
+          console.log(response.data);
+          setSuccessMessage("Account created successfully!");
+          setErrorMessage("");
+          setFormData({
+            username: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+            discord: "",
+            steam: "",
+            riotid: "",
+            about: "",
+            profile_picture: null,
+          });
+          // Redirect to the login page
+          navigate("/login");
+        } else {
+          // non-201 responses
         }
-        // Join all error messages into a single string so we can send display
-        setErrorMessage(errorMessages.join(" "));
-      } else if (error.request) {
-        setErrorMessage("No response received from the server.");
-      } else {
-        setErrorMessage("An error occurred while setting up the request.");
+      } catch (error) {
+        console.error("Error creating account:", error);
+        if (error.response) {
+          const errors = error.response.data;
+          let errorMessages = [];
+          for (const [field, messages] of Object.entries(errors)) {
+            messages.forEach((message) =>
+              errorMessages.push(`${field}: ${message}`)
+            );
+          }
+          // Join all error messages into a single string so we can send display
+          setErrorMessage(errorMessages.join(" "));
+        } else if (error.request) {
+          setErrorMessage("No response received from the server.");
+        } else {
+          setErrorMessage("An error occurred while setting up the request.");
+        }
+        setSuccessMessage("");
       }
-      setSuccessMessage("");
-    }
-  }, [formData, navigate]); 
+    },
+    [formData, navigate]
+  );
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -128,24 +129,22 @@ function SignupForm() {
 
   useEffect(() => {
     const handleKeyPress = (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         e.preventDefault();
         handleSubmit(e);
       }
     };
-  
-    // Add event listener
-    window.addEventListener('keypress', handleKeyPress);
-  
+
+    window.addEventListener("keypress", handleKeyPress);
+
     // Cleanup function
     return () => {
-      window.removeEventListener('keypress', handleKeyPress);
+      window.removeEventListener("keypress", handleKeyPress);
       if (imagePreview) {
         URL.revokeObjectURL(imagePreview);
       }
     };
   }, [imagePreview, handleSubmit]); // Include handleSubmit here
-  
 
   return (
     <body>

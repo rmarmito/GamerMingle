@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./styles/supportStyles.css"; // Make sure this CSS file has the updated styles you provided
+import "./styles/supportStyles.css";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
@@ -90,7 +90,7 @@ function ContactPage() {
             width: "100px",
             height: "100px",
             margin: "0px",
-            marginTop: "-80px", // Adjust this value to move the logo higher
+            marginTop: "-80px",
             alignItems: "center",
           }}
           alt="Logo"

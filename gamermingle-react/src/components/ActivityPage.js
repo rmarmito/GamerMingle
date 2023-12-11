@@ -51,7 +51,7 @@ function ActivityPage() {
 
     const body = {
       message: currentMessage,
-      receiver: selectedUser.id, // Here we're using the ID from the selectedUser directly
+      receiver: selectedUser.id,
       sender: currentUser.id,
     };
 
@@ -77,7 +77,6 @@ function ActivityPage() {
     }
   };
 
-  // useEffect hook to fetch chat history
   useEffect(() => {
     let intervalId;
 
@@ -88,13 +87,11 @@ function ActivityPage() {
       }
     };
 
-    // Immediately fetch when the selected user changes
     fetchHistory();
 
     // Then, set up the interval for refreshing the chat history
     intervalId = setInterval(fetchHistory, 3000); // Refresh every 3 seconds
 
-    // Clear the interval when the component unmounts or when selectedUser changes
     return () => {
       clearInterval(intervalId);
     };

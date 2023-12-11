@@ -17,32 +17,32 @@ function LoginForm() {
 
   const navigate = useNavigate();
 
-  const handleSubmit = useCallback(async (e) => {
-    if (e) e.preventDefault();
-    try {
-      const response = await axios.post("http://localhost:8000/api/token/", {
-        username: username,
-        password: password,
-      });
-      // Handle response data (e.g., save the token)
-      console.log(response.data);
-      localStorage.setItem("token", response.data.access);
+  const handleSubmit = useCallback(
+    async (e) => {
+      if (e) e.preventDefault();
+      try {
+        const response = await axios.post("http://localhost:8000/api/token/", {
+          username: username,
+          password: password,
+        });
+        console.log(response.data);
+        localStorage.setItem("token", response.data.access);
 
-      login(response.data.access);
-      navigate("/activity");
-    } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        console.log(error.response.data);
-        setErrorMessage("Failed to log in. Please check your credentials.");
-      } else if (error.request) {
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log("Error", error.message);
+        login(response.data.access);
+        navigate("/activity");
+      } catch (error) {
+        if (error.response) {
+          console.log(error.response.data);
+          setErrorMessage("Failed to log in. Please check your credentials.");
+        } else if (error.request) {
+          console.log(error.request);
+        } else {
+          console.log("Error", error.message);
+        }
       }
-    }
-  }, [username, password, login, navigate]);
+    },
+    [username, password, login, navigate]
+  );
 
   const loginContainerStyles = {
     display: "flex",
@@ -66,18 +66,18 @@ function LoginForm() {
   useEffect(() => {
     // Function to handle key press
     const handleKeyPress = (e) => {
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         e.preventDefault(); // Prevent the default action
         handleSubmit();
       }
     };
 
     // Add event listener for keypress
-    window.addEventListener('keypress', handleKeyPress);
+    window.addEventListener("keypress", handleKeyPress);
 
     // Cleanup function
     return () => {
-      window.removeEventListener('keypress', handleKeyPress);
+      window.removeEventListener("keypress", handleKeyPress);
     };
   }, [handleSubmit]);
 
