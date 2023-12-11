@@ -26,5 +26,10 @@ class UserSerializer(serializers.ModelSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
-        fields = ['id', 'sender', 'receiver', 'content', 'timestamp']
+        fields = ['id', 'content', 'sender', 'receiver', 'timestamp']
 
+    def validate_content(self, value):
+        # Add custom validation for the 'content' field if needed
+        if len(value) < 5:
+            raise serializers.ValidationError("Content must be at least 5 characters long.")
+        return value

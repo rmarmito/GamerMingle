@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import PersonContainer from "./PersonContainer";
+import MessageComponent from "./MessageComponent";
 
 function ActivityPage() {
   const [users, setUsers] = useState([]);
@@ -23,7 +24,9 @@ function ActivityPage() {
             },
           }
         );
-        setChatHistory(response.data);
+
+        // Assuming your API response has a 'data' property containing the chat history
+        setChatHistory(response.data.data); // Adjust this based on your actual response structure
       } catch (error) {
         console.error("Error fetching chat history:", error);
       }
@@ -34,49 +37,12 @@ function ActivityPage() {
   const handleMessageChange = (event) => {
     setCurrentMessage(event.target.value);
   };
-
+  
   const handleUserClick = (user) => {
-    setSelectedUser(user);
+    console.log('Clicked User:', user);
+    setSelectedUser(user); // Pass the user directly to handleSendMessage
   };
-
-  const sendMessage = async () => {
-    if (!selectedUser || !selectedUser.id) {
-      console.error("No user selected or user ID is undefined");
-      return;
-    }
-    if (!currentMessage.trim()) {
-      console.error("Message is empty");
-      return;
-    }
-
-    const body = {
-      message: currentMessage,
-      receiver: selectedUser.id, // Here we're using the ID from the selectedUser directly
-      sender: currentUser.id,
-    };
-
-    try {
-      const postUrl = `http://localhost:8000/api/messages/${selectedUser.id}/`;
-      const response = await axios.post(postUrl, body, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      });
-
-      if (response.status === 201) {
-        setChatHistory((prevChatHistory) => [
-          ...prevChatHistory,
-          response.data,
-        ]);
-        setCurrentMessage("");
-      } else {
-        console.error("Failed to send message:", response);
-      }
-    } catch (error) {
-      console.error("Error sending message:", error);
-    }
-  };
-
+  
   // useEffect hook to fetch chat history
   useEffect(() => {
     let intervalId;
@@ -210,6 +176,7 @@ function ActivityPage() {
     height: "90%", // Set a max height for scrollable content
     overflowY: "auto", // Enable vertical scroll if content overflows
   };
+  
   const profileMediaStyles = {
     border: "2px solid #3b3b58",
     borderRadius: "30px",
@@ -235,39 +202,13 @@ function ActivityPage() {
           </div>
         </div>
       </div>
-      <div className="col-md-5" style={containersStyles}>
-        <div className="chat-box shadow-lg" style={chatBoxStyles}>
-          <div className="chat-box-area" style={chatContainerStyles}>
-            {selectedUser && (
-              <div className="chat-header text-warning">
-                Start chatting with {selectedUser.username}
-              </div>
-            )}
-            <div className="chat-history">
-              {chatHistory.map((message, index) => (
-                <p key={index}>{message.content}</p>
-              ))}
-            </div>
-          </div>
-          <div className="chat-message clearfix pt-3">
-            <div className="input-group mb-0">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Send a message..."
-                value={currentMessage}
-                onChange={handleMessageChange}
-              />
-              <button
-                className="btn btn-primary"
-                onClick={() => sendMessage(selectedUser.id)}
-              >
-                Send
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+
+      <MessageComponent
+                    authToken={authToken}
+                    selectedUser={selectedUser}
+                    setMessages={setChatHistory}
+                />
+
       <div className="col-md-4" style={containersStyles}>
         <div className="profile-box shadow-lg" style={chatBoxStyles}>
           {/* Profile Picture */}
