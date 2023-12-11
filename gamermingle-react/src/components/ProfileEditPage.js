@@ -50,13 +50,13 @@ function ProfileEditPage() {
   useEffect(() => {
     const getCurrentUserLoggedIn = async () => {
       if (!token || isFormInitialized) return; // Check if form is already initialized
+      const url = 'http://localhost:8000/api/current_user_logged_in/';
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
 
       try {
-        const response = await axios.get('http://localhost:8000/api/current_user_logged_in/', {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        const response = await axios.get(url, { headers });
 
         setFormData({
           username: response.data.username,
