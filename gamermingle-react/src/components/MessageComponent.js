@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const containersStyles = {
     paddingTop: "100px",
@@ -32,51 +33,74 @@ const chatContainerStyles = {
     overflowY: "auto", // Enable vertical scroll if content overflows
 };
 
-const MessageComponent = ({ authToken, selectedUser, setMessages }) => {
-    const receiverUser = selectedUser;
+const MessageComponent = ({ authToken, selectedUser, setMessages, currentUser }) => {
     const [newMessage, setNewMessage] = useState('');
 
-    const handleSendMessage = async () => {
-        console.log("token", authToken)
-        const decodedToken = jwt_decode(authToken); // Assuming you have a library like jwt_decode
-        console.log("Decoded Token:", decodedToken);
+    const fetchChatHistoryByUsername = async (username) => {
         try {
-            console.log('Selected User in handleSendMessage:', selectedUser);
-            console.log('Request Payload:', {
-                content: newMessage,
-                receiver: receiverUser,
-            });
-    
-            // Ensure selectedUser exists and has an ID before sending a message
-            if (receiverUser) {
-                const response = await fetch('http://127.0.0.1:8000/api/messages/', {
-                    method: 'POST',
+            if (username) {
+                const response = await axios.get(`http://127.0.0.1:8000/api/messages/?receiver=${username}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${authToken}`,
                     },
-                    body: JSON.stringify({
-                        content: newMessage,
-                        receiver: receiverUser,
-                    }),
                 });
-    
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+
+                if (!response.data.success) {
+                    throw new Error(`API error: ${response.data.message || 'Unknown error'}`);
                 }
-    
-                const data = await response.json();
-    
-                setMessages(prevMessages => [...prevMessages, data]);
-                setNewMessage('');
+
+                setMessages(response.data.data || []); // Adjust this based on your actual response structure
             } else {
-                console.error('No user selected or user ID is undefined');
+                console.error('No username provided');
             }
+        } catch (error) {
+            console.error('Error fetching chat history:', error);
+        }
+    };
+
+    const handleSendMessage = async () => {
+        try {
+            if (!selectedUser || !selectedUser.username || !currentUser || !currentUser.id) {
+                console.error('No user selected or user ID is undefined');
+                return;
+            }
+    
+            const response = await axios.post('http://127.0.0.1:8000/api/messages/', {
+                content: newMessage,
+                receiver: selectedUser.username,
+                sender: currentUser.id,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`,
+                },
+            });
+    
+            console.log('API Response:', response);
+    
+            if (!response.data.success) {
+                throw new Error(`API error: ${response.data.message || 'Unknown error'}`);
+            }
+    
+            // Assuming the message PK is accessible in response.data.message
+            const messagePK = response.data.message.id;
+            console.log('Sent Message PK:', messagePK);
+    
+            setMessages(prevMessages => [...prevMessages, response.data.message]);
+            setNewMessage('');
         } catch (error) {
             console.error('Error sending message:', error);
         }
     };
-    
+
+    // Fetch chat history when selectedUser changes
+    useEffect(() => {
+        if (selectedUser && selectedUser.username) {
+            fetchChatHistoryByUsername(selectedUser.username).catch(console.error);
+        }
+    }, [selectedUser, authToken]);
+
     return (
         <div className="col-md-5" style={containersStyles}>
             <div className="chat-box shadow-lg" style={chatBoxStyles}>

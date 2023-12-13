@@ -6,10 +6,14 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework import generics
 
+from rest_framework import serializers
 from .serializers import UserSerializer, MessageSerializer
 from .models import CustomUser, Message
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
+
+from django.shortcuts import get_object_or_404
+from rest_framework.generics import ListCreateAPIView
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser, FormParser])
@@ -37,16 +41,20 @@ class MessageView(APIView):
         return Response(serializer.data)
 
     def post(self, request, receiver_id):
+        receiver = CustomUser.objects.get(id=receiver_id)
         serializer = MessageSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(receiver=receiver, sender=request.user)
             return Response(serializer.data, status=201)
         return Response(serializer.errors, status=400)
-    
-class MessageListCreateView(generics.ListCreateAPIView):
+
+class MessageListCreateView(ListCreateAPIView):
     queryset = Message.objects.all()
     serializer_class = MessageSerializer
     permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
-        serializer.save(sender=self.request.user)
+        sender = self.request.user
+        receiver_username = self.kwargs['receiver_username']
+        receiver = get_object_or_404(CustomUser, username=receiver_username)
+        serializer.save(sender=sender, receiver=receiver)

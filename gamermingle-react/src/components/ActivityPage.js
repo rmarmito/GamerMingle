@@ -37,10 +37,12 @@ function ActivityPage() {
   const handleMessageChange = (event) => {
     setCurrentMessage(event.target.value);
   };
-  
+
   const handleUserClick = (user) => {
     console.log('Clicked User:', user);
-    setSelectedUser(user); // Pass the user directly to handleSendMessage
+    setSelectedUser(user); // This should set the selectedUser state
+    console.log("Selected User:", selectedUser); // This might still log the previous state, it's asynchronous
+    console.log("Selected User ID:", selectedUser); // This might still log the previous state, it's asynchronous
   };
   
   // useEffect hook to fetch chat history
@@ -204,10 +206,11 @@ function ActivityPage() {
       </div>
 
       <MessageComponent
-                    authToken={authToken}
-                    selectedUser={selectedUser}
-                    setMessages={setChatHistory}
-                />
+        authToken={authToken}
+        selectedUser={selectedUser}
+        setMessages={setChatHistory}
+        currentUser={currentUser}
+      />
 
       <div className="col-md-4" style={containersStyles}>
         <div className="profile-box shadow-lg" style={chatBoxStyles}>
